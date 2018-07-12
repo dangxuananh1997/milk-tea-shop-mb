@@ -1,9 +1,9 @@
 import React from 'react';
 
-import RootNav from './src/routes/RootNav';
+import Tab from './src/routes/Tab';
 
 export default class App extends React.Component {
   render() {
-    return <RootNav />;
+    return <Tab />;
   }
 }

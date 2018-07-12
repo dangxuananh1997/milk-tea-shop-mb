@@ -3,7 +3,10 @@ import { View, Text } from 'react-native';
 
 import commonStyles from './../styles/common';
 
-export default class Settings extends React.Component {
+export default class Setting extends React.Component {
+  static navigationOptions = {
+    title: 'Setting',
+  };
 
   render() {
     return (

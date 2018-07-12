@@ -2,29 +2,15 @@ import React from 'react';
 
 import { createBottomTabNavigator } from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
+import HomeStack from './HomeStack';
+import OrderStack from './OrderStack';
+import SettingStack from './SettingStack';
 
-import Home from './../screens/Home';
-import Orders from './../screens/Orders';
-import Settings from './../screens/Settings';
-
-export default class BottomTab extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: navigation.getParam('title', 'Home'),
-    };
-  };
-  
-  render() {
-    return <Tab />;
-  }
-
-}
-
-const Tab = createBottomTabNavigator(
+export default Tab = createBottomTabNavigator(
   {
-    Home: Home,
-    Orders: Orders,
-    Settings: Settings
+    Home: HomeStack,
+    Order: OrderStack,
+    Setting: SettingStack
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -35,10 +21,10 @@ const Tab = createBottomTabNavigator(
           case 'Home':
             iconName = 'home';
             break;
-          case 'Orders':
+          case 'Order':
             iconName = 'shopping-cart';
             break;
-          case 'Settings':
+          case 'Setting':
             iconName = 'settings';
             break;
         }

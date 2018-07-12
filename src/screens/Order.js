@@ -3,12 +3,15 @@ import { View, Text } from 'react-native';
 
 import commonStyles from './../styles/common';
 
-export default class Orders extends React.Component {
+export default class Order extends React.Component {
+  static navigationOptions = {
+    title: 'Order',
+  };
 
   render() {
     return (
       <View style={commonStyles.screen}>
-        <Text>Orders</Text>
+        <Text>Order</Text>
       </View>
     );
   }
