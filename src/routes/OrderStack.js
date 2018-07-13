@@ -1,8 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
 import Order from '../screens/Order';
 
-export default OrderStack = createStackNavigator(
+const OrderStack = createStackNavigator(
   {
-    Order: Order
-  }
+    Order,
+  },
 );
+
+export default OrderStack;

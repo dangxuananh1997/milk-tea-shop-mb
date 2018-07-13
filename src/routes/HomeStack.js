@@ -1,8 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
-import Home from './../screens/Home';
+import Home from '../screens/Home';
 
-export default HomeStack = createStackNavigator(
+const HomeStack = createStackNavigator(
   {
-    Home: Home
-  }
+    Home,
+  },
 );
+
+export default HomeStack;

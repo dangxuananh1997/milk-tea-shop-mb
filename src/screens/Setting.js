@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import commonStyles from './../styles/common';
+import commonStyles from '../styles/common';
 
-export default class Setting extends React.Component {
+class Setting extends React.Component {
   static navigationOptions = {
     title: 'Setting',
   };
@@ -11,9 +11,10 @@ export default class Setting extends React.Component {
   render() {
     return (
       <View style={commonStyles.screen}>
-        <Text>Settings</Text>
+        <Text>Setting</Text>
       </View>
     );
   }
-  
 }
+
+export default Setting;

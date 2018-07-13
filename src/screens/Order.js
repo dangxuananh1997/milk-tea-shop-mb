@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import commonStyles from './../styles/common';
+import commonStyles from '../styles/common';
 
-export default class Order extends React.Component {
+class Order extends React.Component {
   static navigationOptions = {
     title: 'Order',
   };
@@ -15,5 +15,6 @@ export default class Order extends React.Component {
       </View>
     );
   }
-
 }
+
+export default Order;

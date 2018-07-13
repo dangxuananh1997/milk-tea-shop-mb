@@ -6,17 +6,17 @@ import HomeStack from './HomeStack';
 import OrderStack from './OrderStack';
 import SettingStack from './SettingStack';
 
-export default Tab = createBottomTabNavigator(
+const Tab = createBottomTabNavigator(
   {
     Home: HomeStack,
     Order: OrderStack,
-    Setting: SettingStack
+    Setting: SettingStack,
   },
   {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
-        let iconName = 'feather';
+        let iconName;
         switch (routeName) {
           case 'Home':
             iconName = 'home';
@@ -27,13 +27,18 @@ export default Tab = createBottomTabNavigator(
           case 'Setting':
             iconName = 'settings';
             break;
+          default:
+            iconName = 'feather';
+            break;
         }
         return <Feather name={iconName} size={focused ? 25 : 20} color={tintColor} />;
-      }
+      },
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     },
-  }
+  },
 );
+
+export default Tab;
