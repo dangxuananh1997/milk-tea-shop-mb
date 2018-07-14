@@ -1,16 +1,18 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import { createBottomTabNavigator } from 'react-navigation';
-import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Feather';
+
 import HomeStack from './HomeStack';
-import OrderStack from './OrderStack';
-import SettingStack from './SettingStack';
+import CouponStack from './CouponStack';
+import MenuStack from './MenuStack';
 
 const Tab = createBottomTabNavigator(
   {
     Home: HomeStack,
-    Order: OrderStack,
-    Setting: SettingStack,
+    Coupon: CouponStack,
+    Menu: MenuStack,
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -21,18 +23,19 @@ const Tab = createBottomTabNavigator(
           case 'Home':
             iconName = 'home';
             break;
-          case 'Order':
-            iconName = 'shopping-cart';
+          case 'Coupon':
+            iconName = 'box';
             break;
-          case 'Setting':
-            iconName = 'settings';
+          case 'Menu':
+            iconName = 'menu';
             break;
           default:
             iconName = 'feather';
             break;
         }
-        return <Feather name={iconName} size={focused ? 25 : 20} color={tintColor} />;
+        return <Icon name={iconName} size={focused ? 25 : 20} color={tintColor} />;
       },
+      tabBarButtonComponent: TouchableOpacity,
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',

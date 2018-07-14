@@ -3,18 +3,18 @@ import { View, Text } from 'react-native';
 
 import commonStyles from '../styles/common';
 
-class Setting extends React.Component {
+class Cart extends React.Component {
   static navigationOptions = {
-    title: 'Setting',
+    title: 'Cart',
   };
 
   render() {
     return (
       <View style={commonStyles.screen}>
-        <Text>Setting</Text>
+        <Text>Cart</Text>
       </View>
     );
   }
 }
 
-export default Setting;
+export default Cart;

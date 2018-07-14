@@ -1,17 +1,26 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import commonStyles from '../styles/common';
 
+import CartBadge from '../components/CartBadge';
+
 class Home extends React.Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'Home',
-  };
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.push('Cart')}>
+        <CartBadge quantity={3} />
+      </TouchableOpacity>
+    ),
+  });
 
   render() {
     return (
       <View style={commonStyles.screen}>
-        <Text>Home</Text>
+        <TouchableOpacity onPress={this.test}>
+          <Text>Home</Text>
+        </TouchableOpacity>
       </View>
     );
   }

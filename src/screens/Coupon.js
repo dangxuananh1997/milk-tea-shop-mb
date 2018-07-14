@@ -3,18 +3,18 @@ import { View, Text } from 'react-native';
 
 import commonStyles from '../styles/common';
 
-class Order extends React.Component {
+class Coupon extends React.Component {
   static navigationOptions = {
-    title: 'Order',
+    title: 'Coupon',
   };
 
   render() {
     return (
       <View style={commonStyles.screen}>
-        <Text>Order</Text>
+        <Text>Coupon</Text>
       </View>
     );
   }
 }
 
-export default Order;
+export default Coupon;
