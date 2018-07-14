@@ -37,6 +37,7 @@ const CartBadge = ({ quantity = 5 }) => (
       style={styles.icon} />
     <Badge
       containerStyle={styles.badgeStyle}
+      textStyle={{ fontSize: quantity < 10 ? 14 : 12, textAlign: 'center' }}
       value={quantity} />
   </View>
 );
