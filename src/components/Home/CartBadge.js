@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CartBadge = ({ quantity = 5 }) => (
+const CartBadge = ({ quantity = 0 }) => (
   <View
     style={styles.cartBadgeContainer}>
     <Icon
