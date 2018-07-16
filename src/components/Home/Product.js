@@ -3,7 +3,7 @@ import React from 'react';
 import {
   View,
   Text,
-  // Button,
+  Button,
   Image,
   StyleSheet,
 } from 'react-native';
@@ -14,16 +14,35 @@ const styles = StyleSheet.create({
     height: 200,
     width: '100%',
     position: 'relative',
-    backgroundColor: 'lightblue',
+    backgroundColor: 'white',
     overflow: 'hidden',
-    // flex: 1,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'lightgrey',
   },
-  cardImage: {
+  imageWrapper: {
+    position: 'relative',
+    height: 110,
+    width: '100%',
+    // borderStyle: 'solid',
+    // borderBottomWidth: 1,
+    // borderColor: 'lightgrey',
+  },
+  image: {
+    position: 'absolute',
     height: '100%',
-    width: 80,
-    // flex: 1,
+    width: '100%',
+    flex: 1,
   },
-  cardButton: {
+  infoWrapper: {
+    padding: 10,
+    height: 90,
+  },
+  productName: {
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  button: {
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 0,
@@ -35,15 +54,22 @@ const styles = StyleSheet.create({
 const INIT_PRODUCT = {
   Id: 1,
   Name: 'Trà sữa',
-  Picture: 'http://gongcha.com.vn/wp-content/uploads/2018/02/banner-6-buoc-1-395x494.png',
+  Picture: 'https://api-milktea-admin.azurewebsites.net/Media/Product/8ad63f0f-33a8-46a1-8f08-efd24ebb0b40.jpg',
 };
 
 const Product = ({ product = INIT_PRODUCT }) => (
   <View style={styles.card}>
-    {/* <Image
-      style={styles.cardImage}
-      source={{ uri: product.Picture }} /> */}
-    <Text>{product.Name}</Text>
+    <View style={styles.imageWrapper}>
+      <Image
+        resizeMode="contain"
+        style={styles.image}
+        source={{ uri: product.Picture }} />
+    </View>
+    <View style={styles.infoWrapper}>
+      <Text style={styles.productName}>{product.Name}</Text>
+      <Button
+        title="Add to Cart" />
+    </View>
   </View>
 );
 

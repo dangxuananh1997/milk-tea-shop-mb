@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
-  Text,
+  // Text,
   FlatList,
   StyleSheet,
 } from 'react-native';
@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  increaseCartBadgeCount,
-  decreaseCartBadgeCount,
   getProduct,
 } from '../actions/home';
 
@@ -23,6 +21,9 @@ import {
 } from '../components/Home';
 
 const styles = StyleSheet.create({
+  flatList: {
+    marginTop: 5,
+  },
   item: {
     flex: 1,
     margin: 10,
@@ -42,6 +43,8 @@ class Home extends React.Component {
   componentDidMount() {
     const { badgeCount, navigation } = this.props;
     navigation.setParams({ badgeCount });
+
+    this.getData();
   }
 
   componentDidUpdate(prevProps) {
@@ -52,20 +55,32 @@ class Home extends React.Component {
     }
   }
 
+  getData() {
+    const { getProductProps } = this.props;
+    getProductProps();
+  }
+
   render() {
+    const { productList, getProductLoading } = this.props;
+
     return (
       <View style={commonStyles.screen}>
         <FlatList
+          contentContainerStyle={styles.flatList}
           numColumns={2}
-          data={[{ key: 'test' }, undefined]}
+          // add ghost product for grid display
+          data={(productList.length % 2 === 0) ? productList : [...productList, { id: -1 }]}
+          // data={[{ Id: 1 }, { Id: 2 }]}
+          onRefresh={() => { this.getData(); }}
+          refreshing={getProductLoading}
           renderItem={
-            item => (
+            ({ item }) => (
               <View style={styles.item}>
-                {item ? <Product product={item} /> : <Text>{item.key}</Text>}
+                {item.Id > 0 ? <Product product={item} /> : null}
               </View>
             )
           }
-          keyExtractor={(item, index) => index} />
+          keyExtractor={item => item.id} />
       </View>
     );
   }
@@ -74,13 +89,13 @@ class Home extends React.Component {
 function mapStateToProps(state) {
   return {
     badgeCount: state.home.badgeCount,
+    productList: state.home.productList,
+    getProductLoading: state.home.getProductLoading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    incCartBadgeCount: bindActionCreators(increaseCartBadgeCount, dispatch),
-    decCartBadgeCount: bindActionCreators(decreaseCartBadgeCount, dispatch),
     getProductProps: bindActionCreators(getProduct, dispatch),
   };
 }
