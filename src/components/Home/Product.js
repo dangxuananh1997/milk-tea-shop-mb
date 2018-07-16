@@ -15,10 +15,14 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'relative',
     backgroundColor: 'white',
-    overflow: 'hidden',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'lightgrey',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
   },
   imageWrapper: {
     position: 'relative',
@@ -57,7 +61,7 @@ const INIT_PRODUCT = {
   Picture: 'https://api-milktea-admin.azurewebsites.net/Media/Product/8ad63f0f-33a8-46a1-8f08-efd24ebb0b40.jpg',
 };
 
-const Product = ({ product = INIT_PRODUCT }) => (
+const Product = ({ product = INIT_PRODUCT, addToCart }) => (
   <View style={styles.card}>
     <View style={styles.imageWrapper}>
       <Image
@@ -68,7 +72,8 @@ const Product = ({ product = INIT_PRODUCT }) => (
     <View style={styles.infoWrapper}>
       <Text style={styles.productName}>{product.Name}</Text>
       <Button
-        title="Add to Cart" />
+        title="Add to Cart"
+        onPress={() => { addToCart(product); }} />
     </View>
   </View>
 );

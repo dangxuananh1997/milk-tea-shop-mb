@@ -9,5 +9,6 @@ module.exports = {
     "import/no-named-as-default-member": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-closing-bracket-location": [1, "after-props"],
+    "no-nested-ternary": 0,
   },
 };

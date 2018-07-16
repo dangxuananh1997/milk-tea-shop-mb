@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -23,6 +24,7 @@ import {
 const styles = StyleSheet.create({
   flatList: {
     marginTop: 5,
+    paddingBottom: 15,
   },
   item: {
     flex: 1,
@@ -60,6 +62,11 @@ class Home extends React.Component {
     getProductProps();
   }
 
+  addToCart(product) {
+    const { navigation } = this.props;
+    navigation.navigate('ProductInCart', { product });
+  }
+
   render() {
     const { productList, getProductLoading } = this.props;
 
@@ -70,17 +77,24 @@ class Home extends React.Component {
           numColumns={2}
           // add ghost product for grid display
           data={(productList.length % 2 === 0) ? productList : [...productList, { id: -1 }]}
-          // data={[{ Id: 1 }, { Id: 2 }]}
           onRefresh={() => { this.getData(); }}
           refreshing={getProductLoading}
           renderItem={
             ({ item }) => (
               <View style={styles.item}>
-                {item.Id > 0 ? <Product product={item} /> : null}
+                {
+                  item.Id > 0
+                    ? (
+                      <Product
+                        product={item}
+                        addToCart={(product) => { this.addToCart(product); }} />
+                    )
+                    : null
+                }
               </View>
             )
           }
-          keyExtractor={item => item.id} />
+          keyExtractor={item => item.Id} />
       </View>
     );
   }
