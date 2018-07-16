@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,7 +17,17 @@ import {
 
 import commonStyles from '../styles/common';
 
-import CartBadge from '../components/Home/CartBadge';
+import {
+  CartBadge,
+  Product,
+} from '../components/Home';
+
+const styles = StyleSheet.create({
+  item: {
+    flex: 1,
+    margin: 10,
+  },
+});
 
 class Home extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -38,7 +54,19 @@ class Home extends React.Component {
 
   render() {
     return (
-      <View style={commonStyles.screen} />
+      <View style={commonStyles.screen}>
+        <FlatList
+          numColumns={2}
+          data={[{ key: 'test' }, undefined]}
+          renderItem={
+            item => (
+              <View style={styles.item}>
+                {item ? <Product product={item} /> : <Text>{item.key}</Text>}
+              </View>
+            )
+          }
+          keyExtractor={(item, index) => index} />
+      </View>
     );
   }
 }
