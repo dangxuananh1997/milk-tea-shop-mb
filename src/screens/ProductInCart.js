@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   Button,
+  ActivityIndicator,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -66,6 +67,7 @@ class ProductInCart extends React.Component {
       selectedVariant,
       quantity,
       navigation,
+      loading,
     } = this.props;
 
     const product = navigation.getParam('product', null);
@@ -80,6 +82,7 @@ class ProductInCart extends React.Component {
         </View>
         <View style={styles.contentWrapper}>
           <Text style={styles.productName}>{product.Name}</Text>
+          <ActivityIndicator animating={loading} color="black" />
           <View style={styles.variantWrapper}>
             <Variants
               variantList={variantList}
@@ -117,6 +120,7 @@ function mapStateToProps(state) {
     selectedVariant: state.productInCart.selectedVariant,
     variantList: state.productInCart.variantList,
     quantity: state.productInCart.quantity,
+    loading: state.productInCart.loading,
   };
 }
 
