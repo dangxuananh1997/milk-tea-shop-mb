@@ -70,7 +70,12 @@ const Product = ({ product = INIT_PRODUCT, addToCart }) => (
         source={{ uri: product.Picture }} />
     </View>
     <View style={styles.infoWrapper}>
-      <Text style={styles.productName}>{product.Name}</Text>
+      <Text
+        style={styles.productName}
+        numberOfLines={1}
+        ellipsizeMode="tail">
+        {product.Name}
+      </Text>
       <Button
         title="Add to Cart"
         onPress={() => { addToCart(product); }} />

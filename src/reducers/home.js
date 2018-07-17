@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   badgeCount: 0,
   getProductLoading: false,
   productList: [],
+  totalProduct: 0,
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -32,7 +33,8 @@ export default function (state = INITIAL_STATE, action) {
     case GET_PRODUCT_SUCCESS:
       return {
         ...state,
-        productList: action.payload,
+        productList: action.payload.Data,
+        totalProduct: action.payload.Total,
         getProductLoading: false,
       };
     case GET_PRODUCT_FAILURE:

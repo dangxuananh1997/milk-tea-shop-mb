@@ -10,5 +10,6 @@ module.exports = {
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-closing-bracket-location": [1, "after-props"],
     "no-nested-ternary": 0,
+    "max-len": 0,
   },
 };

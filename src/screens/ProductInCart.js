@@ -3,58 +3,30 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   Button,
 } from 'react-native';
 
-import commonStyles from '../styles/common';
-import Varients from '../components/Home/Varients';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const styles = StyleSheet.create({
-  imageWrapper: {
-    height: 150,
-    width: '100%',
-    backgroundColor: 'white',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
-  image: {
-    height: '100%',
-    width: '100%',
-  },
-  contentWrapper: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 10,
-  },
-  productName: {
-    textAlign: 'center',
-    fontSize: 26,
-    marginBottom: 10,
-  },
-  varientWrapper: {
-    height: 100,
-    width: '100%',
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  priceAndQuantityWrapper: {
-    height: 150,
-    width: '100%',
-    backgroundColor: 'skyblue',
-    marginBottom: 16,
-    marginTop: 6,
-  },
-  button: {
-    marginTop: 16,
-  },
-});
+import Icon from 'react-native-vector-icons/Feather';
+
+import {
+  selectProductVariant,
+  getProductVariants,
+  setProductInCartQuantity,
+  resetProductInCart,
+} from '../actions/productInCart';
+
+import commonStyles from '../styles/common';
+import styles from '../styles/productInCart';
+
+import {
+  Variants,
+  QuantityPicker,
+} from '../components/ProductInCart';
+
+import { convertToVND } from '../tools/currencyConverter';
 
 class ProductInCart extends React.Component {
   static navigationOptions = {
@@ -62,15 +34,41 @@ class ProductInCart extends React.Component {
   };
 
   componentDidMount() {
+    const {
+      resetProps,
+      getProductVariantsProps,
+      navigation,
+    } = this.props;
+    resetProps();
+    const product = navigation.getParam('product', null);
+    getProductVariantsProps(product ? product.Id : 11);
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      selectVariantProps,
+      variantList,
+      selectedVariant,
+    } = this.props;
+
+    if (prevProps.variantList !== variantList && !selectedVariant) {
+      if (variantList.length > 0) {
+        selectVariantProps(variantList[0]);
+      }
+    }
   }
 
   render() {
-    const { navigation } = this.props;
-    const product = navigation.getParam('product', {
-      Id: 1,
-      Name: 'Hồng trà sữa',
-      Picture: 'https://api-milktea-admin.azurewebsites.net/Media/Product/e553d5d4-9b1c-4e74-a212-b4fff55526a1.jpg',
-    });
+    const {
+      selectVariantProps,
+      setQuantityProps,
+      variantList,
+      selectedVariant,
+      quantity,
+      navigation,
+    } = this.props;
+
+    const product = navigation.getParam('product', null);
 
     return (
       <View style={commonStyles.screen}>
@@ -82,11 +80,27 @@ class ProductInCart extends React.Component {
         </View>
         <View style={styles.contentWrapper}>
           <Text style={styles.productName}>{product.Name}</Text>
-          <View style={styles.varientWrapper}>
-            <Varients />
+          <View style={styles.variantWrapper}>
+            <Variants
+              variantList={variantList}
+              selectedId={selectedVariant ? selectedVariant.Id : 0}
+              selectVariant={(variant) => {
+                selectVariantProps(variant);
+              }} />
           </View>
-          <View style={styles.priceAndQuantityWrapper}>
-            <Text>100000</Text>
+          <View style={styles.priceWrapper}>
+            <View style={styles.priceAndQuantity}>
+              <Text style={styles.price}>{selectedVariant ? convertToVND(selectedVariant.Price) : ''}</Text>
+              <Icon name="x" style={styles.mul} />
+              <View style={styles.quantity}>
+                <QuantityPicker defaultQuantity={quantity} setQuantity={q => setQuantityProps(q)} />
+              </View>
+            </View>
+            <View style={styles.totalPrice}>
+              <Text style={styles.totalPriceText}>
+                {selectedVariant ? convertToVND(selectedVariant.Price * quantity) : ''}
+              </Text>
+            </View>
           </View>
           <Button
             style={styles.button}
@@ -98,4 +112,21 @@ class ProductInCart extends React.Component {
   }
 }
 
-export default ProductInCart;
+function mapStateToProps(state) {
+  return {
+    selectedVariant: state.productInCart.selectedVariant,
+    variantList: state.productInCart.variantList,
+    quantity: state.productInCart.quantity,
+  };
+}
+
+function mapDispathToProps(dispatch) {
+  return {
+    selectVariantProps: bindActionCreators(selectProductVariant, dispatch),
+    getProductVariantsProps: bindActionCreators(getProductVariants, dispatch),
+    setQuantityProps: bindActionCreators(setProductInCartQuantity, dispatch),
+    resetProps: bindActionCreators(resetProductInCart, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(ProductInCart);

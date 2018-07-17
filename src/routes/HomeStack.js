@@ -6,8 +6,8 @@ import ProductInCart from '../screens/ProductInCart';
 
 const HomeStack = createStackNavigator(
   {
-    ProductInCart,
     Home,
+    ProductInCart,
     Cart,
   },
 );
