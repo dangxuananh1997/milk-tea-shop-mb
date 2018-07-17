@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
-  // Text,
   FlatList,
   StyleSheet,
 } from 'react-native';
@@ -37,23 +36,23 @@ class Home extends React.Component {
     title: 'Home',
     headerRight: (
       <TouchableOpacity onPress={() => navigation.push('Cart')}>
-        <CartBadge quantity={navigation.getParam('badgeCount', 0)} />
+        <CartBadge quantity={navigation.getParam('totalCartProduct', 0)} />
       </TouchableOpacity>
     ),
   });
 
   componentDidMount() {
-    const { badgeCount, navigation } = this.props;
-    navigation.setParams({ badgeCount });
+    const { totalCartProduct, navigation } = this.props;
+    navigation.setParams({ totalCartProduct });
 
     this.getData();
   }
 
   componentDidUpdate(prevProps) {
-    const { badgeCount, navigation } = this.props;
+    const { totalCartProduct, navigation } = this.props;
 
-    if (prevProps.badgeCount !== badgeCount) {
-      navigation.setParams({ badgeCount });
+    if (prevProps.totalCartProduct !== totalCartProduct) {
+      navigation.setParams({ totalCartProduct });
     }
   }
 
@@ -102,9 +101,9 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    badgeCount: state.home.badgeCount,
     productList: state.home.productList,
     getProductLoading: state.home.getProductLoading,
+    totalCartProduct: state.cart.cartProductList.length,
   };
 }
 

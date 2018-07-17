@@ -1,10 +1,29 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { removeFromCart } from '../actions/cart';
+import { editFromCart } from '../actions/productInCart';
+
+import ProductItem from '../components/Cart/ProductItem';
+
 import commonStyles from '../styles/common';
+
+const styles = StyleSheet.create({
+  flatList: {
+    marginTop: 16,
+  },
+  item: {
+    marginLeft: 16,
+    marginRight: 16,
+  },
+});
 
 class Cart extends React.Component {
   static navigationOptions = {
@@ -12,9 +31,34 @@ class Cart extends React.Component {
   };
 
   render() {
+    const {
+      cartProductList,
+      navigation,
+      editFromCartProps,
+      removeFromCartProps,
+    } = this.props;
+
     return (
       <View style={commonStyles.screen}>
-        <Text>Cart</Text>
+        <FlatList
+          contentContainerStyle={styles.flatList}
+          data={cartProductList}
+          renderItem={
+            ({ item }) => (
+              <View style={styles.item}>
+                <ProductItem
+                  product={item}
+                  editProduct={(productVariant) => {
+                    // editFromCartProps(productVariant);
+                    // navigation.navigation('ProductInCart', {})
+                  }}
+                  deleteProduct={(productVariant) => {
+                    removeFromCartProps(productVariant);
+                  }} />
+              </View>
+            )
+          }
+          keyExtractor={item => `${item.Id}`} />
       </View>
     );
   }
@@ -22,13 +66,14 @@ class Cart extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    // productList: state.cart.productList,r
+    cartProductList: state.cart.cartProductList,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    removeFromCartProps: bindActionCreators(removeFromCart, dispatch),
+    editFromCartProps: bindActionCreators(editFromCart, dispatch),
   };
 }
 

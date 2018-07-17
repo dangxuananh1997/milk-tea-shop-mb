@@ -10,7 +10,7 @@ const callAPI = async (method = 'GET', path, data, params, successCallBack, erro
 
   return axios({
     method,
-    url: `https://api-milktea-admin.azurewebsites.net/api${path}`,
+    url: `https://api-milktea-client.azurewebsites.net/api${path}`,
     headers: { ...headerToken },
     data,
     params,

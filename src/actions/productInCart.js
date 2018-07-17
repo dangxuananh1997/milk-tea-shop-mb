@@ -5,6 +5,7 @@ import {
   GET_PRODUCT_VARIANTS_FAILURE,
   SET_PRODUCT_IN_CART_QUANTITY,
   RESET_PRODUCT_IN_CART,
+  EDIT_FROM_CART,
 } from './types';
 
 import { callAPI, apiPaths } from '../services';
@@ -36,6 +37,8 @@ const setProductInCartQuantity = quantity => ({ type: SET_PRODUCT_IN_CART_QUANTI
 
 const resetProductInCart = () => ({ type: RESET_PRODUCT_IN_CART, payload: null });
 
+const editFromCart = productVariant => ({ type: EDIT_FROM_CART, payload: productVariant });
+
 export {
   selectProductVariant,
   getProductVariantsRequest,
@@ -43,4 +46,5 @@ export {
   getProductVariantsFailure,
   setProductInCartQuantity,
   resetProductInCart,
+  editFromCart,
 };

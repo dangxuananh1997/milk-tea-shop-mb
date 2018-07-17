@@ -19,6 +19,8 @@ import {
   resetProductInCart,
 } from '../actions/productInCart';
 
+import { addToCart } from '../actions/cart';
+
 import commonStyles from '../styles/common';
 import styles from '../styles/productInCart';
 
@@ -68,6 +70,7 @@ class ProductInCart extends React.Component {
       quantity,
       navigation,
       loading,
+      addToCartProps,
     } = this.props;
 
     const product = navigation.getParam('product', null);
@@ -108,7 +111,15 @@ class ProductInCart extends React.Component {
           <Button
             style={styles.button}
             title="Add to Cart"
-            onPress={() => {}} />
+            onPress={() => {
+              addToCartProps({
+                ...selectedVariant,
+                Quantity: quantity,
+                Name: product.Name,
+                Picture: product.Picture,
+              });
+              navigation.pop();
+            }} />
         </View>
       </View>
     );
@@ -130,6 +141,7 @@ function mapDispathToProps(dispatch) {
     getProductVariantsProps: bindActionCreators(getProductVariants, dispatch),
     setQuantityProps: bindActionCreators(setProductInCartQuantity, dispatch),
     resetProps: bindActionCreators(resetProductInCart, dispatch),
+    addToCartProps: bindActionCreators(addToCart, dispatch),
   };
 }
 

@@ -5,6 +5,7 @@ import {
   GET_PRODUCT_VARIANTS_FAILURE,
   SET_PRODUCT_IN_CART_QUANTITY,
   RESET_PRODUCT_IN_CART,
+  EDIT_FROM_CART,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -44,6 +45,17 @@ export default function (state = INITIAL_STATE, action) {
       };
     case RESET_PRODUCT_IN_CART:
       return INITIAL_STATE;
+    case EDIT_FROM_CART: {
+      const productVariant = action.payload;
+      return {
+        ...state,
+        selectedVariant: {
+          Id: productVariant.Id,
+          Size: productVariant.Size,
+          Price: productVariant.Price,
+        },
+      };
+    }
     default:
       return state;
   }
