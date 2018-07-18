@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { removeFromCart } from '../actions/cart';
-import { editFromCart } from '../actions/productInCart';
 
 import ProductItem from '../components/Cart/ProductItem';
 
@@ -34,7 +33,6 @@ class Cart extends React.Component {
     const {
       cartProductList,
       navigation,
-      editFromCartProps,
       removeFromCartProps,
     } = this.props;
 
@@ -49,8 +47,19 @@ class Cart extends React.Component {
                 <ProductItem
                   product={item}
                   editProduct={(productVariant) => {
-                    // editFromCartProps(productVariant);
-                    // navigation.navigation('ProductInCart', {})
+                    navigation.navigate('ProductInCart', {
+                      product: {
+                        Id: productVariant.ProductId,
+                        Name: productVariant.Name,
+                        Picture: productVariant.Picture,
+                      },
+                      selectedVariant: {
+                        Id: productVariant.Id,
+                        Size: productVariant.Size,
+                        Price: productVariant.Price,
+                      },
+                      quantity: productVariant.Quantity,
+                    });
                   }}
                   deleteProduct={(productVariant) => {
                     removeFromCartProps(productVariant);
@@ -73,7 +82,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     removeFromCartProps: bindActionCreators(removeFromCart, dispatch),
-    editFromCartProps: bindActionCreators(editFromCart, dispatch),
   };
 }
 

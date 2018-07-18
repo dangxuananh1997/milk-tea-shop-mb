@@ -5,7 +5,7 @@ import {
   GET_PRODUCT_VARIANTS_FAILURE,
   SET_PRODUCT_IN_CART_QUANTITY,
   RESET_PRODUCT_IN_CART,
-  EDIT_FROM_CART,
+  CHANGE_ADD_TO_UPDATE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   variantList: [],
   loading: false,
   quantity: 1,
+  isUpdate: false,
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -45,17 +46,11 @@ export default function (state = INITIAL_STATE, action) {
       };
     case RESET_PRODUCT_IN_CART:
       return INITIAL_STATE;
-    case EDIT_FROM_CART: {
-      const productVariant = action.payload;
+    case CHANGE_ADD_TO_UPDATE:
       return {
         ...state,
-        selectedVariant: {
-          Id: productVariant.Id,
-          Size: productVariant.Size,
-          Price: productVariant.Price,
-        },
+        isUpdate: action.payload,
       };
-    }
     default:
       return state;
   }

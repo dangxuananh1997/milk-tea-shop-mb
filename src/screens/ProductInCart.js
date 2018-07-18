@@ -17,9 +17,14 @@ import {
   getProductVariants,
   setProductInCartQuantity,
   resetProductInCart,
+  changeAddToUpdate,
 } from '../actions/productInCart';
 
-import { addToCart } from '../actions/cart';
+import {
+  addToCart,
+  editFromCart,
+  removeFromCart,
+} from '../actions/cart';
 
 import commonStyles from '../styles/common';
 import styles from '../styles/productInCart';
@@ -40,11 +45,27 @@ class ProductInCart extends React.Component {
     const {
       resetProps,
       getProductVariantsProps,
+      selectVariantProps,
+      setQuantityProps,
+      changeAddToUpdateProps,
       navigation,
     } = this.props;
     resetProps();
     const product = navigation.getParam('product', null);
-    getProductVariantsProps(product ? product.Id : 11);
+    getProductVariantsProps(product.Id);
+
+    // get from cart
+    const selectedProductVariant = navigation.getParam('selectedVariant', null);
+    const quantity = navigation.getParam('quantity', 1);
+    if (selectedProductVariant != null) {
+      selectVariantProps(selectedProductVariant);
+      changeAddToUpdateProps(true);
+    } else {
+      changeAddToUpdate(false);
+    }
+    if (quantity) {
+      setQuantityProps(quantity);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -68,9 +89,12 @@ class ProductInCart extends React.Component {
       variantList,
       selectedVariant,
       quantity,
-      navigation,
       loading,
+      isUpdate,
       addToCartProps,
+      editFromCartProps,
+      changeAddToUpdateProps,
+      navigation,
     } = this.props;
 
     const product = navigation.getParam('product', null);
@@ -110,15 +134,23 @@ class ProductInCart extends React.Component {
           </View>
           <Button
             style={styles.button}
-            title="Add to Cart"
+            title={isUpdate ? 'Update Cart' : 'Add to Cart'}
             onPress={() => {
-              addToCartProps({
+              const variant = {
                 ...selectedVariant,
                 Quantity: quantity,
+                ProductId: product.Id,
                 Name: product.Name,
                 Picture: product.Picture,
-              });
-              navigation.pop();
+              };
+              if (isUpdate) {
+                const selectedProductVariant = navigation.getParam('selectedVariant', null);
+                editFromCartProps(selectedProductVariant.Id, variant);
+              } else {
+                addToCartProps(variant);
+              }
+              changeAddToUpdateProps(false);
+              navigation.goBack();
             }} />
         </View>
       </View>
@@ -132,6 +164,7 @@ function mapStateToProps(state) {
     variantList: state.productInCart.variantList,
     quantity: state.productInCart.quantity,
     loading: state.productInCart.loading,
+    isUpdate: state.productInCart.isUpdate,
   };
 }
 
@@ -141,7 +174,10 @@ function mapDispathToProps(dispatch) {
     getProductVariantsProps: bindActionCreators(getProductVariants, dispatch),
     setQuantityProps: bindActionCreators(setProductInCartQuantity, dispatch),
     resetProps: bindActionCreators(resetProductInCart, dispatch),
+    changeAddToUpdateProps: bindActionCreators(changeAddToUpdate, dispatch),
     addToCartProps: bindActionCreators(addToCart, dispatch),
+    editFromCartProps: bindActionCreators(editFromCart, dispatch),
+    removeFromCartProps: bindActionCreators(removeFromCart, dispatch),
   };
 }
 

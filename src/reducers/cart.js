@@ -1,5 +1,6 @@
 import {
   ADD_TO_CART,
+  EDIT_FROM_CART,
   REMOVE_FROM_CART,
 } from '../actions/types';
 
@@ -20,6 +21,17 @@ export default function (state = INITIAL_STATE, action) {
       } else {
         tmpCartProductList.push(addingProduct);
       }
+      return {
+        ...state,
+        cartProductList: [...tmpCartProductList],
+      };
+    }
+    case EDIT_FROM_CART: {
+      // find edit product, if change size -> remove then add
+      const { productIdFromCart, editingProduct } = action.payload;
+      const tmpCartProductList = [...state.cartProductList];
+      const index = tmpCartProductList.findIndex(p => p.Id === productIdFromCart);
+      tmpCartProductList.splice(index, 1, editingProduct);
       return {
         ...state,
         cartProductList: [...tmpCartProductList],
