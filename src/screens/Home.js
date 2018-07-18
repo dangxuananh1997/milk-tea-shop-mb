@@ -32,14 +32,21 @@ const styles = StyleSheet.create({
 });
 
 class Home extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Home',
-    headerRight: (
-      <TouchableOpacity onPress={() => navigation.push('Cart')}>
-        <CartBadge quantity={navigation.getParam('totalCartProduct', 0)} />
-      </TouchableOpacity>
-    ),
-  });
+  static navigationOptions = ({ navigation }) => {
+    const totalCartProduct = navigation.getParam('totalCartProduct', 0);
+    return {
+      title: 'Home',
+      headerRight: (
+        totalCartProduct > 0
+          ? (
+            <TouchableOpacity onPress={() => navigation.push('Cart')}>
+              <CartBadge quantity={totalCartProduct} />
+            </TouchableOpacity>
+          )
+          : null
+      ),
+    };
+  };
 
   componentDidMount() {
     const { totalCartProduct, navigation } = this.props;
