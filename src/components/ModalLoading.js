@@ -16,17 +16,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000040',
   },
   spinnerWrapper: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderRadius: 5,
     height: 100,
     width: 100,
-    borderRadius: 10,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
   },
 });
 
-const ModalLoading = ({ color = '#000000', loading }) => (
+const ModalLoading = ({ color = '#FFFFFF', loading }) => (
   <Modal
     visible={loading}
     transparent

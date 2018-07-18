@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import store from './src/store';
 
-import Tab from './src/routes/Tab';
+import Nav from './src/routes/Nav';
 
 const sourceSanProLight = require('./assets/fonts/SourceSansPro-Light.ttf');
 const sourceSanProRegular = require('./assets/fonts/SourceSansPro-Regular.ttf');
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Tab />
+        <Nav />
       </Provider>
     );
   }
