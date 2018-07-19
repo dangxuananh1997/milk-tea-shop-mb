@@ -31,34 +31,38 @@ const styles = StyleSheet.create({
 class AuthProcessing extends React.Component {
   async componentDidMount() {
     const {
-      navigation,
       setLoadingProps,
       setTokenProps,
     } = this.props;
 
-    try {
-      // await AsyncStorage.setItem('initial', 'true');
-      const tokenJson = await AsyncStorage.getItem('token');
-      const tokenExpiredTimeString = await AsyncStorage.getItem('tokenExpiredTime');
-      setLoadingProps(true);
+    const tokenJson = await AsyncStorage.getItem('token');
+    const tokenExpiredTimeString = await AsyncStorage.getItem('tokenExpiredTime');
+    setLoadingProps(true);
 
-      if (tokenJson && tokenExpiredTimeString) {
-        const token = JSON.parse(tokenJson);
-        const tokenExpiredTime = new Date(tokenExpiredTimeString);
+    if (tokenJson && tokenExpiredTimeString) {
+      const token = JSON.parse(tokenJson);
+      const tokenExpiredTime = new Date(tokenExpiredTimeString);
+      if (tokenExpiredTime > new Date()) {
         setTokenProps(token, tokenExpiredTime);
-        setLoadingProps(false);
-        navigation.navigate('Tab');
-        // setTimeout(() => {
-        // }, 800);
+        this.navigateToScreen('Tab');
       } else {
-        setLoadingProps(false);
-        navigation.navigate('SigningStack');
-        // setTimeout(() => {
-        // }, 800);
+        this.navigateToScreen('SigningStack');
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      this.navigateToScreen('SigningStack');
     }
+  }
+
+  navigateToScreen(routeName) {
+    const {
+      navigation,
+      setLoadingProps,
+    } = this.props;
+
+    setTimeout(() => {
+      setLoadingProps(false);
+      navigation.navigate(routeName);
+    }, 800);
   }
 
   render() {
