@@ -55,7 +55,7 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
       };
     case SET_TOKEN: {
-      const { token, tokenExpiredTime } = action.payload.token;
+      const { token, tokenExpiredTime } = action.payload;
       return {
         ...state,
         token,

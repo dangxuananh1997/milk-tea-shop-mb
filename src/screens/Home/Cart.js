@@ -10,13 +10,13 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { removeFromCart } from '../actions/cart';
+import { removeFromCart } from '../../actions/cart';
 
-import ProductItem from '../components/Cart/ProductItem';
+import ProductItem from '../../components/Cart/ProductItem';
 
-import commonStyles from '../styles/common';
+import commonStyles from '../../styles/common';
 
-import { convertToVND } from '../tools/currencyConverter';
+import { convertToVND } from '../../tools/currencyConverter';
 
 const styles = StyleSheet.create({
   flatList: {
@@ -72,8 +72,8 @@ class Cart extends React.Component {
 
   render() {
     const {
-      cartProductList,
       navigation,
+      cartProductList,
       removeFromCartProps,
     } = this.props;
 
@@ -114,7 +114,9 @@ class Cart extends React.Component {
             )
           }
           keyExtractor={item => `${item.Id}`} />
-        <TouchableOpacity style={styles.buttonWrapper}>
+        <TouchableOpacity
+          style={styles.buttonWrapper}
+          onPress={() => { navigation.navigate('CreateOrder'); }}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>
               Order

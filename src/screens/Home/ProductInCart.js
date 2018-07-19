@@ -18,23 +18,23 @@ import {
   setProductInCartQuantity,
   resetProductInCart,
   changeAddToUpdate,
-} from '../actions/productInCart';
+} from '../../actions/productInCart';
 
 import {
   addToCart,
   editFromCart,
   removeFromCart,
-} from '../actions/cart';
+} from '../../actions/cart';
 
-import commonStyles from '../styles/common';
-import styles from '../styles/productInCart';
+import commonStyles from '../../styles/common';
+import styles from '../../styles/productInCart';
 
 import {
   Variants,
   QuantityPicker,
-} from '../components/ProductInCart';
+} from '../../components/ProductInCart';
 
-import { convertToVND } from '../tools/currencyConverter';
+import { convertToVND } from '../../tools/currencyConverter';
 
 class ProductInCart extends React.Component {
   static navigationOptions = {

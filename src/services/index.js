@@ -6,7 +6,7 @@ import apiPaths from './apiPaths';
 
 const callAPI = async (method = 'GET', path, data, params, successCallBack, errorCallBack) => {
   const { token } = store.getState().auth; // token
-  const headerToken = token ? { Authorization: `bearer ${token}` } : null;
+  const headerToken = token ? { Authorization: `bearer ${token.access_token}` } : null;
 
   return axios({
     method,
