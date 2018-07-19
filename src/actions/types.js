@@ -1,3 +1,4 @@
+export const SET_LOADING = 'SET_LOADING';
 
 export const GET_PRODUCT_REQUEST = 'GET_PRODUCT_REQUEST';
 export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS';
@@ -16,3 +17,14 @@ export const CHANGE_ADD_TO_UPDATE = 'CHANGE_ADD_TO_UPDATE';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const EDIT_FROM_CART = 'EDIT_FROM_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+
+export const SET_USERNAME = 'SET_USERNAME';
+export const SET_PASSWORD = 'SET_PASSWORD';
+
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+
+export const SET_TOKEN = 'SET_TOKEN';
+
+export const LOG_OUT = 'LOG_OUT';

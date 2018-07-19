@@ -21,8 +21,8 @@ export function getProductVariants(productId) {
     dispatch(getProductVariantsRequest());
     try {
       callAPI('GET', apiPaths.getProductVariants, null, { productId },
-        (response) => {
-          dispatch(getProductVariantsSuccess(response.data));
+        (variants) => {
+          dispatch(getProductVariantsSuccess(variants));
         },
         (error) => {
           dispatch(getProductVariantsFailure(error));

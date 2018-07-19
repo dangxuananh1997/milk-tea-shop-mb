@@ -7,6 +7,14 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+  setToken,
+  setLoading,
+} from '../../actions/auth';
+
 import commonStyles from '../../styles/common';
 
 import ModalLoading from '../../components/ModalLoading';
@@ -22,25 +30,65 @@ const styles = StyleSheet.create({
 
 class AuthProcessing extends React.Component {
   async componentDidMount() {
-    const { navigation } = this.props;
+    const {
+      navigation,
+      setLoadingProps,
+      setTokenProps,
+    } = this.props;
 
-    const token = await AsyncStorage.getItem('token');
-    setTimeout(() => {
-      navigation.navigate(token ? 'Tab' : 'SigningStack');
-    }, 800);
+    try {
+      // await AsyncStorage.setItem('initial', 'true');
+      const tokenJson = await AsyncStorage.getItem('token');
+      const tokenExpiredTimeString = await AsyncStorage.getItem('tokenExpiredTime');
+      setLoadingProps(true);
+
+      if (tokenJson && tokenExpiredTimeString) {
+        const token = JSON.parse(tokenJson);
+        const tokenExpiredTime = new Date(tokenExpiredTimeString);
+        setTokenProps(token, tokenExpiredTime);
+        setLoadingProps(false);
+        navigation.navigate('Tab');
+        // setTimeout(() => {
+        // }, 800);
+      } else {
+        setLoadingProps(false);
+        navigation.navigate('SigningStack');
+        // setTimeout(() => {
+        // }, 800);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
+    const { loading } = this.props;
+
     return (
       <View style={commonStyles.screen}>
         <Image
           style={styles.bgImage}
           resizeMode="cover"
           source={background} />
-        <ModalLoading loading={false} />
+        <ModalLoading loading={loading} />
       </View>
     );
   }
 }
 
-export default AuthProcessing;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    tokenExpiredTime: state.auth.tokenExpiredTime,
+    loading: state.auth.loading,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setTokenProps: bindActionCreators(setToken, dispatch),
+    setLoadingProps: bindActionCreators(setLoading, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthProcessing);

@@ -6,11 +6,22 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
   KeyboardAvoidingView,
+  AsyncStorage,
   StyleSheet,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+  setUsername,
+  setPassword,
+  logIn,
+} from '../../actions/auth';
 
 import commonStyles from '../../styles/common';
 
@@ -59,11 +70,30 @@ const styles = StyleSheet.create({
 });
 
 class SignIn extends React.Component {
-  componentDidMount() {
+  componentDidUpdate() {
+    const {
+      navigation,
+      token,
+      tokenExpiredTime,
+    } = this.props;
 
+    if (token) {
+      AsyncStorage.setItem('token', JSON.stringify(token));
+      AsyncStorage.setItem('tokenExpiredTime', tokenExpiredTime.toString());
+      navigation.navigate('Tab');
+    }
   }
 
   render() {
+    const {
+      username,
+      password,
+      loading,
+      setUsernameProps,
+      setPasswordProps,
+      logInProps,
+    } = this.props;
+
     return (
       <View style={commonStyles.screen}>
         <Image
@@ -77,19 +107,28 @@ class SignIn extends React.Component {
               style={styles.textInput}
               selectionColor="white"
               underlineColorAndroid="white"
-              placeholder="Phone" />
+              placeholder="Phone"
+              onChangeText={(text) => { setUsernameProps(text); }} />
             <TextInput
               style={styles.textInput}
               selectionColor="white"
               underlineColorAndroid="white"
               placeholder="Password"
-              secureTextEntry />
-            <TouchableOpacity style={styles.button}>
-              <Icon
-                style={styles.icon}
-                name="log-in"
-                size={20}
-                color="white" />
+              secureTextEntry
+              onChangeText={(text) => { setPasswordProps(text); }} />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => { logInProps(username, password); }}>
+              {
+                loading
+                  ? <ActivityIndicator loading={loading} size="small" color="white" />
+                  : (
+                    <Icon
+                      style={styles.icon}
+                      name="log-in"
+                      size={20}
+                      color="white" />)
+              }
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -98,4 +137,22 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+function mapStateToProps(state) {
+  return {
+    username: state.auth.username,
+    password: state.auth.password,
+    loading: state.auth.loading,
+    token: state.auth.token,
+    tokenExpiredTime: state.auth.tokenExpiredTime,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUsernameProps: bindActionCreators(setUsername, dispatch),
+    setPasswordProps: bindActionCreators(setPassword, dispatch),
+    logInProps: bindActionCreators(logIn, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -15,8 +15,8 @@ export function getProduct() {
     dispath(getProductRequest());
     try {
       callAPI('GET', apiPaths.getProduct, null, 'pageIndex=1&searchValue=',
-        (response) => {
-          dispath(getProductSuccess(response.data));
+        (products) => {
+          dispath(getProductSuccess(products));
         },
         (error) => {
           dispath(getProductFailure(error));
