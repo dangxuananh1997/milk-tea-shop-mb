@@ -119,7 +119,7 @@ class Cart extends React.Component {
           onPress={() => { navigation.navigate('CreateOrder'); }}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>
-              Order
+              Create Order
             </Text>
             <Text style={styles.totalPrice}>
               {`Total: ${convertToVND(totalPrice)}`}

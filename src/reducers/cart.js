@@ -2,14 +2,11 @@ import {
   ADD_TO_CART,
   EDIT_FROM_CART,
   REMOVE_FROM_CART,
-  CREATE_ORDER_REQUEST,
-  CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_FAILURE,
+  CLEAR_CART,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   cartProductList: [],
-  loading: false,
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -60,21 +57,11 @@ export default function (state = INITIAL_STATE, action) {
         cartProductList: [...tmpCartProductList],
       };
     }
-    case CREATE_ORDER_REQUEST:
+    case CLEAR_CART:
       return {
         ...state,
-        loading: true,
-      };
-    case CREATE_ORDER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-      };
-    case CREATE_ORDER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-      };
+        cartProductList: [],
+      }
     default:
       return state;
   }
