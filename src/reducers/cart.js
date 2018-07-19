@@ -27,11 +27,20 @@ export default function (state = INITIAL_STATE, action) {
       };
     }
     case EDIT_FROM_CART: {
-      // find edit product, if change size -> remove then add
       const { productIdFromCart, editingProduct } = action.payload;
       const tmpCartProductList = [...state.cartProductList];
+      // find product from cart, replace with editing product
       const index = tmpCartProductList.findIndex(p => p.Id === productIdFromCart);
-      tmpCartProductList.splice(index, 1, editingProduct);
+
+      // find if editing product is in cart
+      const existedIndex = tmpCartProductList.findIndex(p => p.Id === editingProduct.Id);
+      if (existedIndex !== -1 && existedIndex !== index) {
+        const existedProduct = tmpCartProductList[existedIndex];
+        existedProduct.Quantity += editingProduct.Quantity;
+        tmpCartProductList.splice(index, 1);
+      } else {
+        tmpCartProductList.splice(index, 1, editingProduct);
+      }
       return {
         ...state,
         cartProductList: [...tmpCartProductList],

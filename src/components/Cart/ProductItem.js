@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    marginBottom: 16,
   },
   wrapper: {
     flex: 1,

@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 0,
     height: 200,
+    borderRadius: 5,
     width: '100%',
     position: 'relative',
     backgroundColor: 'white',

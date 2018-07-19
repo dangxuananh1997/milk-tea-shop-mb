@@ -21,14 +21,18 @@ import { convertToVND } from '../tools/currencyConverter';
 const styles = StyleSheet.create({
   flatList: {
     marginTop: 16,
+    paddingBottom: 86,
   },
   item: {
     marginLeft: 16,
     marginRight: 16,
+    marginBottom: 16,
   },
   buttonWrapper: {
-    paddingTop: 16,
     paddingBottom: 0,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
   button: {
     height: 50,
