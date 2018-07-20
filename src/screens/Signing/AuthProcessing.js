@@ -77,7 +77,7 @@ class AuthProcessing extends React.Component {
     setTimeout(() => {
       setLoadingProps(false);
       navigation.navigate(routeName);
-    }, 0);
+    }, 800);
   }
 
   render() {

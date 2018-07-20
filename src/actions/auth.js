@@ -1,6 +1,7 @@
 import {
   SET_USERNAME,
   SET_PASSWORD,
+  SET_FULL_NAME_REGISTER,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -18,6 +19,7 @@ const setLoading = bool => ({ type: SET_LOADING, payload: bool });
 
 const setUsername = username => ({ type: SET_USERNAME, payload: username });
 const setPassword = password => ({ type: SET_PASSWORD, payload: password });
+const setFullNameRegister = fullName => ({ type: SET_FULL_NAME_REGISTER, payload: fullName });
 
 const logInRequest = () => ({ type: LOG_IN_REQUEST, payload: null });
 const logInSuccess = token => ({ type: LOG_IN_SUCCESS, payload: token });
@@ -60,6 +62,7 @@ const logOut = () => ({ type: LOG_OUT, payload: null });
 export {
   setLoading,
   setUsername,
+  setFullNameRegister,
   setPassword,
   logInRequest,
   logInSuccess,

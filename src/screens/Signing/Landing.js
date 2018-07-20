@@ -66,7 +66,7 @@ class Landing extends React.Component {
             onPress={() => { navigation.push('SignIn'); }}>
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => { navigation.push('SignUp'); }}>
             <Text style={styles.signUp}>Register</Text>
           </TouchableOpacity>
         </View>

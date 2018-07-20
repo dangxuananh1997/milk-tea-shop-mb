@@ -1,6 +1,7 @@
 import {
   SET_USERNAME,
   SET_PASSWORD,
+  SET_FULL_NAME_REGISTER,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   tokenExpiredTime: null,
   loading: false,
   userInfo: null,
+  fullName: '',
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -38,6 +40,11 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         password: action.payload,
+      };
+    case SET_FULL_NAME_REGISTER:
+      return {
+        ...state,
+        fullName: action.payload,
       };
     case LOG_IN_REQUEST:
       return {

@@ -110,7 +110,8 @@ class SignIn extends React.Component {
               style={styles.textInput}
               selectionColor="white"
               underlineColorAndroid="white"
-              placeholder="Phone"
+              keyboardType="numeric"
+              placeholder="Phone Number"
               onChangeText={(text) => { setUsernameProps(text); }} />
             <TextInput
               style={styles.textInput}
