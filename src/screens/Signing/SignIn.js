@@ -21,6 +21,7 @@ import {
   setUsername,
   setPassword,
   logIn,
+  getUserInfo,
 } from '../../actions/auth';
 
 import commonStyles from '../../styles/common';
@@ -75,11 +76,13 @@ class SignIn extends React.Component {
       navigation,
       token,
       tokenExpiredTime,
+      getUserInfoProps,
     } = this.props;
 
     if (token) {
       AsyncStorage.setItem('token', JSON.stringify(token));
       AsyncStorage.setItem('tokenExpiredTime', tokenExpiredTime.toString());
+      getUserInfoProps();
       navigation.navigate('Tab');
     }
   }
@@ -152,6 +155,7 @@ function mapDispatchToProps(dispatch) {
     setUsernameProps: bindActionCreators(setUsername, dispatch),
     setPasswordProps: bindActionCreators(setPassword, dispatch),
     logInProps: bindActionCreators(logIn, dispatch),
+    getUserInfoProps: bindActionCreators(getUserInfo, dispatch),
   };
 }
 
