@@ -47,12 +47,24 @@ class AuthProcessing extends React.Component {
       if (tokenExpiredTime > new Date()) {
         setTokenProps(token, tokenExpiredTime);
         getUserInfoProps();
-        this.navigateToScreen('Tab');
       } else {
         this.navigateToScreen('SigningStack');
       }
     } else {
       this.navigateToScreen('SigningStack');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      loading,
+      userInfo,
+    } = this.props;
+
+    if (prevProps.loading === true && !prevProps.userInfo) {
+      if (loading === false && userInfo) {
+        this.navigateToScreen('Tab');
+      }
     }
   }
 
@@ -87,6 +99,7 @@ function mapStateToProps(state) {
   return {
     token: state.auth.token,
     tokenExpiredTime: state.auth.tokenExpiredTime,
+    userInfo: state.auth.userInfo,
     loading: state.auth.loading,
   };
 }

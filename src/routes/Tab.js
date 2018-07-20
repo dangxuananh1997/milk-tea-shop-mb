@@ -12,8 +12,8 @@ const Tab = createBottomTabNavigator(
   {
     Home: HomeStack,
     Order: CouponStack,
-    // Coupon: CouponStack,
     Menu: MenuStack,
+    // Coupon: CouponStack,
   },
   {
     navigationOptions: ({ navigation }) => ({

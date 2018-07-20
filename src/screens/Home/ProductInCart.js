@@ -5,6 +5,7 @@ import {
   Image,
   Button,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -100,7 +101,7 @@ class ProductInCart extends React.Component {
     const product = navigation.getParam('product', null);
 
     return (
-      <View style={commonStyles.screen}>
+      <ScrollView style={commonStyles.screen}>
         <View style={styles.imageWrapper}>
           <Image
             resizeMode="contain"
@@ -153,7 +154,7 @@ class ProductInCart extends React.Component {
               navigation.goBack();
             }} />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
