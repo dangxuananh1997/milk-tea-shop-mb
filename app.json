@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MTShop",
+    "name": "MTShopApp",
     "description": "Milk Tea Shop mobile application",
     "slug": "milk-tea-shop-mb",
     "privacy": "public",
@@ -22,6 +22,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.daxuavanhungnguoiban.milkteashopapp"
     }
   }
 }
