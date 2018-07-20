@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import {
   setToken,
   setLoading,
+  getUserInfo,
 } from '../../actions/auth';
 
 import commonStyles from '../../styles/common';
@@ -33,6 +34,7 @@ class AuthProcessing extends React.Component {
     const {
       setLoadingProps,
       setTokenProps,
+      getUserInfoProps,
     } = this.props;
 
     const tokenJson = await AsyncStorage.getItem('token');
@@ -44,6 +46,7 @@ class AuthProcessing extends React.Component {
       const tokenExpiredTime = new Date(tokenExpiredTimeString);
       if (tokenExpiredTime > new Date()) {
         setTokenProps(token, tokenExpiredTime);
+        getUserInfoProps();
         this.navigateToScreen('Tab');
       } else {
         this.navigateToScreen('SigningStack');
@@ -92,6 +95,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setTokenProps: bindActionCreators(setToken, dispatch),
     setLoadingProps: bindActionCreators(setLoading, dispatch),
+    getUserInfoProps: bindActionCreators(getUserInfo, dispatch),
   };
 }
 

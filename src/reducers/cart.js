@@ -61,7 +61,7 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         cartProductList: [],
-      }
+      };
     default:
       return state;
   }

@@ -102,6 +102,19 @@ class CreateOrder extends React.Component {
     title: 'Create Order',
   };
 
+  componentDidMount() {
+    const {
+      setCustomerNameProps,
+      setContactPhoneProps,
+      setDeliveryAddressProps,
+      userInfo,
+    } = this.props;
+
+    setCustomerNameProps(userInfo.FullName ? userInfo.FullName : '');
+    setContactPhoneProps(userInfo.Phone ? userInfo.Phone : '');
+    setDeliveryAddressProps(userInfo.Address ? userInfo.Address : '');
+  }
+
   componentDidUpdate(prevProps) {
     const {
       navigation,
@@ -121,7 +134,7 @@ class CreateOrder extends React.Component {
               onPress: () => {
                 clearCartProps();
                 resetStatusProps();
-                navigation.goBack();
+                navigation.popToTop();
               },
             },
           ],
@@ -175,6 +188,7 @@ class CreateOrder extends React.Component {
               <TextInput
                 style={styles.infoInput}
                 placeholder="Name"
+                value={customerName}
                 underlineColorAndroid="#555555"
                 selectionColor="#555555"
                 onChangeText={(text) => { setCustomerNameProps(text); }} />
@@ -184,6 +198,7 @@ class CreateOrder extends React.Component {
               <TextInput
                 style={styles.infoInput}
                 placeholder="Phone"
+                value={contactPhone}
                 keyboardType="phone-pad"
                 underlineColorAndroid="#555555"
                 selectionColor="#555555"
@@ -194,6 +209,7 @@ class CreateOrder extends React.Component {
               <TextInput
                 style={styles.infoInput}
                 placeholder="Address"
+                value={deliveryAddress}
                 underlineColorAndroid="#555555"
                 selectionColor="#555555"
                 onChangeText={(text) => { setDeliveryAddressProps(text); }} />
@@ -225,6 +241,7 @@ function mapStateToProps(state) {
     contactPhone: state.createOrder.contactPhone,
     deliveryAddress: state.createOrder.deliveryAddress,
     success: state.createOrder.success,
+    userInfo: state.auth.userInfo,
   };
 }
 
