@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     width: '100%',
     height: 40,
-    padding: 10,
     backgroundColor: '#007bff',
     borderRadius: 5,
     elevation: 3,
@@ -65,9 +64,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontFamily: 'source-sans-pro-regular',
     fontSize: 18,
     color: 'white',
+    height: '100%',
   },
 });
 

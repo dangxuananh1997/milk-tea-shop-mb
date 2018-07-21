@@ -7,6 +7,9 @@ const apiPaths = {
   getOrderDetails: '/api/Orders/GetById',
   getUserInfo: '/api/Users/Get',
   register: '/api/Account/Register',
+  getCouponPackage: '/api/CouponPackages/Get',
+  createUserCouponPackage: '/api/UserCounponPackages/Create',
+  getUserCouponPackage: '/api/UserCouponPackages/GetAll',
 };
 
 export default apiPaths;

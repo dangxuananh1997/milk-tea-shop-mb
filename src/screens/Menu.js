@@ -157,16 +157,18 @@ class Menu extends React.Component {
             navigation.navigate('Order');
           }}>
           <Icon name="shopping-cart" size={20} style={styles.icon} />
-          <Text style={styles.optionText}>Order</Text>
+          <Text style={styles.optionText}>Your Order</Text>
           <View style={styles.badgeWrapper}>
             <Badge value={orderList.length} wrapperStyle={styles.badge} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuOptions}
-          onPress={() => { }}>
+          onPress={() => {
+            navigation.navigate('Coupon');
+          }}>
           <Icon name="box" size={20} style={styles.icon} />
-          <Text style={styles.optionText}>Coupon</Text>
+          <Text style={styles.optionText}>Your Coupon</Text>
           <View style={styles.badgeWrapper}>
             <Badge value={0} wrapperStyle={styles.badge} />
           </View>

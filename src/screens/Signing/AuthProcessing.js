@@ -32,14 +32,12 @@ const styles = StyleSheet.create({
 class AuthProcessing extends React.Component {
   async componentDidMount() {
     const {
-      setLoadingProps,
       setTokenProps,
       getUserInfoProps,
     } = this.props;
 
     const tokenJson = await AsyncStorage.getItem('token');
     const tokenExpiredTimeString = await AsyncStorage.getItem('tokenExpiredTime');
-    setLoadingProps(true);
 
     if (tokenJson && tokenExpiredTimeString) {
       const token = JSON.parse(tokenJson);
@@ -71,13 +69,8 @@ class AuthProcessing extends React.Component {
   navigateToScreen(routeName) {
     const {
       navigation,
-      setLoadingProps,
     } = this.props;
-
-    setTimeout(() => {
-      setLoadingProps(false);
-      navigation.navigate(routeName);
-    }, 800);
+    navigation.navigate(routeName);
   }
 
   render() {
