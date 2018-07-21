@@ -11,9 +11,8 @@ import MenuStack from './MenuStack';
 const Tab = createBottomTabNavigator(
   {
     Home: HomeStack,
-    Order: CouponStack,
+    Coupon: CouponStack,
     Menu: MenuStack,
-    // Coupon: CouponStack,
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -26,9 +25,6 @@ const Tab = createBottomTabNavigator(
             break;
           case 'Coupon':
             iconName = 'box';
-            break;
-          case 'Order':
-            iconName = 'layers';
             break;
           case 'Menu':
             iconName = 'menu';

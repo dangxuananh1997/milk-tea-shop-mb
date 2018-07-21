@@ -48,13 +48,11 @@ const styles = StyleSheet.create({
     borderColor: 'lightgrey',
     marginTop: 5,
     paddingTop: 5,
-    fontFamily: 'source-sans-pro-regular',
   },
   packageName: {
     fontSize: 18,
     marginBottom: 5,
     textDecorationLine: 'underline',
-    fontFamily: 'source-sans-pro-regular',
   },
 });
 

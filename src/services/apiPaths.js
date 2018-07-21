@@ -8,7 +8,7 @@ const apiPaths = {
   getUserInfo: '/api/Users/Get',
   register: '/api/Account/Register',
   getCouponPackage: '/api/CouponPackages/Get',
-  createUserCouponPackage: '/api/UserCounponPackages/Create',
+  createUserCouponPackage: '/api/UserCouponPackages/Create',
   getUserCouponPackage: '/api/UserCouponPackages/GetAll',
 };
 

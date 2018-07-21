@@ -5,6 +5,7 @@ import auth from './auth';
 import createOrder from './createOrder';
 import order from './order';
 import coupon from './coupon';
+import snackbar from './snackbar';
 
 export default {
   home,
@@ -14,4 +15,5 @@ export default {
   createOrder,
   order,
   coupon,
+  snackbar,
 };

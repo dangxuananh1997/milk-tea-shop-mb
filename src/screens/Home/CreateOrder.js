@@ -7,7 +7,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -28,6 +27,8 @@ import {
 import {
   clearCart,
 } from '../../actions/cart';
+
+import { showSnackbar } from '../../actions/snackbar';
 
 import commonStyles from '../../styles/common';
 
@@ -121,25 +122,17 @@ class CreateOrder extends React.Component {
       success,
       clearCartProps,
       resetStatusProps,
+      showSnackbarProps,
     } = this.props;
 
     if (prevProps.success !== true) {
-      if (success) {
-        Alert.alert(
-          'Success',
-          'Order successfully!',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                clearCartProps();
-                resetStatusProps();
-                navigation.popToTop();
-              },
-            },
-          ],
-          { cancelable: false },
-        );
+      if (success === true) {
+        showSnackbarProps('Order successfully!');
+        clearCartProps();
+        resetStatusProps();
+        navigation.popToTop();
+      } else if (success === false) {
+        showSnackbarProps('Order failed!');
       }
     }
   }
@@ -253,6 +246,7 @@ function mapDispatchToProps(dispatch) {
     setDeliveryAddressProps: bindActionCreators(setDeliveryAddress, dispatch),
     clearCartProps: bindActionCreators(clearCart, dispatch),
     resetStatusProps: bindActionCreators(resetCreateOrderStatus, dispatch),
+    showSnackbarProps: bindActionCreators(showSnackbar, dispatch),
   };
 }
 

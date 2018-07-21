@@ -16,6 +16,8 @@ import {
   resetCreateUserCouponPackage,
 } from '../actions/coupon';
 
+import { showSnackbar } from '../actions/snackbar';
+
 import CouponPackage from '../components/Coupon/CouponPackage';
 import BuyCouponPackageModal from '../components/Coupon/BuyCouponPackageModal';
 import ModalLoading from '../components/ModalLoading';
@@ -44,8 +46,21 @@ class Coupon extends React.Component {
     title: 'Coupon',
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.getData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      createUserCouponSuccess,
+      showSnackbarProps,
+      resetProps,
+    } = this.props;
+
+    if (prevProps.createUserCouponSuccess == null && createUserCouponSuccess != null) {
+      showSnackbarProps(createUserCouponSuccess ? 'Purchased successfully!' : 'Purchased failed!');
+      resetProps();
+    }
   }
 
   getData() {
@@ -115,6 +130,7 @@ function mapDispatchToProps(dispatch) {
     setCreateUserCouponPackageProps: bindActionCreators(setCreateUserCouponPackage, dispatch),
     createUserCouponPackageProps: bindActionCreators(createUserCouponPackage, dispatch),
     resetProps: bindActionCreators(resetCreateUserCouponPackage, dispatch),
+    showSnackbarProps: bindActionCreators(showSnackbar, dispatch),
   };
 }
 

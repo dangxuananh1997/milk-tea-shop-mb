@@ -5,10 +5,8 @@ const commonStyles = StyleSheet.create({
     flex: 1,
   },
   sourceSansProRegular: {
-    fontFamily: 'source-sans-pro-regular',
   },
   sourceSansProLight: {
-    fontFamily: 'source-sans-pro-light',
   },
 });
 

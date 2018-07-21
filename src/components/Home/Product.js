@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   },
   productName: {
     textAlign: 'center',
-    fontFamily: 'source-sans-pro-regular',
     marginBottom: 10,
   },
   button: {
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     textAlignVertical: 'center',
-    fontFamily: 'source-sans-pro-regular',
     fontSize: 18,
     color: 'white',
     height: '100%',
