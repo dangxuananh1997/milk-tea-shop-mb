@@ -6,6 +6,7 @@ const apiPaths = {
   getOrderList: '/api/Orders/GetAll',
   getOrderDetails: '/api/Orders/GetById',
   getUserInfo: '/api/Users/Get',
+  register: '/api/Account/Register',
 };
 
 export default apiPaths;

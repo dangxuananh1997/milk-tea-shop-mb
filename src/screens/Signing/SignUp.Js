@@ -20,8 +20,11 @@ import { bindActionCreators } from 'redux';
 import {
   setUsername,
   setPassword,
+  setFullNameRegister,
+  setConfirmPassword,
   logIn,
   getUserInfo,
+  register,
 } from '../../actions/auth';
 
 import commonStyles from '../../styles/common';
@@ -77,7 +80,15 @@ class SignUp extends React.Component {
       token,
       tokenExpiredTime,
       getUserInfoProps,
+      registerSuccess,
+      logInProps,
+      username,
+      password,
     } = this.props;
+
+    if (registerSuccess) {
+      logInProps(username, password);
+    }
 
     if (token) {
       AsyncStorage.setItem('token', JSON.stringify(token));
@@ -91,10 +102,14 @@ class SignUp extends React.Component {
     const {
       username,
       password,
+      fullName,
+      confirmPassword,
       loading,
       setUsernameProps,
       setPasswordProps,
-      logInProps,
+      setFullNameProps,
+      setConfirmPasswordProps,
+      registerProps,
     } = this.props;
 
     return (
@@ -118,7 +133,7 @@ class SignUp extends React.Component {
               selectionColor="white"
               underlineColorAndroid="white"
               placeholder="Full Name"
-              onChangeText={(text) => { setUsernameProps(text); }} />
+              onChangeText={(text) => { setFullNameProps(text); }} />
             <TextInput
               style={styles.textInput}
               selectionColor="white"
@@ -132,10 +147,10 @@ class SignUp extends React.Component {
               underlineColorAndroid="white"
               placeholder="Confirm Password"
               secureTextEntry
-              onChangeText={(text) => { }} />
+              onChangeText={(text) => { setConfirmPasswordProps(text); }} />
             <TouchableOpacity
               style={styles.button}
-              onPress={() => { logInProps(username, password); }}>
+              onPress={() => { registerProps(username, fullName, password, confirmPassword); }}>
               {
                 loading
                   ? <ActivityIndicator loading={loading} size="small" color="white" />
@@ -158,6 +173,9 @@ function mapStateToProps(state) {
   return {
     username: state.auth.username,
     password: state.auth.password,
+    fullName: state.auth.fullName,
+    confirmPassword: state.auth.confirmPassword,
+    registerSuccess: state.auth.registerSuccess,
     loading: state.auth.loading,
     token: state.auth.token,
     tokenExpiredTime: state.auth.tokenExpiredTime,
@@ -168,8 +186,11 @@ function mapDispatchToProps(dispatch) {
   return {
     setUsernameProps: bindActionCreators(setUsername, dispatch),
     setPasswordProps: bindActionCreators(setPassword, dispatch),
+    setFullNameProps: bindActionCreators(setFullNameRegister, dispatch),
     logInProps: bindActionCreators(logIn, dispatch),
     getUserInfoProps: bindActionCreators(getUserInfo, dispatch),
+    setConfirmPasswordProps: bindActionCreators(setConfirmPassword, dispatch),
+    registerProps: bindActionCreators(register, dispatch),
   };
 }
 

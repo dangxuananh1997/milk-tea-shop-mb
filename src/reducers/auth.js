@@ -2,6 +2,10 @@ import {
   SET_USERNAME,
   SET_PASSWORD,
   SET_FULL_NAME_REGISTER,
+  SET_CONFIRM_PASSWORD,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -21,6 +25,9 @@ const INITIAL_STATE = {
   loading: false,
   userInfo: null,
   fullName: '',
+  confirmPassword: '',
+  registerSuccess: false,
+  loginSuccess: false,
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -45,6 +52,28 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         fullName: action.payload,
+      };
+    case SET_CONFIRM_PASSWORD:
+      return {
+        ...state,
+        confirmPassword: action.payload,
+      };
+    case REGISTER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        registerSuccess: true,
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        registerSuccess: false,
       };
     case LOG_IN_REQUEST:
       return {

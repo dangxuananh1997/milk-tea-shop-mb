@@ -2,6 +2,10 @@ import {
   SET_USERNAME,
   SET_PASSWORD,
   SET_FULL_NAME_REGISTER,
+  SET_CONFIRM_PASSWORD,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
@@ -20,6 +24,30 @@ const setLoading = bool => ({ type: SET_LOADING, payload: bool });
 const setUsername = username => ({ type: SET_USERNAME, payload: username });
 const setPassword = password => ({ type: SET_PASSWORD, payload: password });
 const setFullNameRegister = fullName => ({ type: SET_FULL_NAME_REGISTER, payload: fullName });
+const setConfirmPassword = confirmPassword => ({ type: SET_CONFIRM_PASSWORD, payload: confirmPassword });
+
+const registerRequest = () => ({ type: REGISTER_REQUEST, payload: null });
+const registerSuccess = response => ({ type: REGISTER_SUCCESS, payload: response });
+const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
+
+export function register(username, fullName, password, confirmPassword) {
+  return (dispatch) => {
+    dispatch(registerRequest());
+    callAPI('POST', apiPaths.register, {
+      Username: username,
+      Password: password,
+      ConfirmPassword: confirmPassword,
+      FullName: fullName,
+    },
+    null,
+    (response) => {
+      dispatch(registerSuccess(response));
+    },
+    (error) => {
+      dispatch(registerFailure(error));
+    });
+  };
+}
 
 const logInRequest = () => ({ type: LOG_IN_REQUEST, payload: null });
 const logInSuccess = token => ({ type: LOG_IN_SUCCESS, payload: token });
@@ -63,6 +91,7 @@ export {
   setLoading,
   setUsername,
   setFullNameRegister,
+  setConfirmPassword,
   setPassword,
   logInRequest,
   logInSuccess,

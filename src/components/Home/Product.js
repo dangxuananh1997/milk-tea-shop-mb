@@ -3,7 +3,7 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
+  TouchableOpacity,
   Image,
   StyleSheet,
 } from 'react-native';
@@ -29,9 +29,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: 110,
     width: '100%',
-    // borderStyle: 'solid',
-    // borderBottomWidth: 1,
-    // borderColor: 'lightgrey',
   },
   image: {
     position: 'absolute',
@@ -45,6 +42,7 @@ const styles = StyleSheet.create({
   },
   productName: {
     textAlign: 'center',
+    fontFamily: 'source-sans-pro-regular',
     marginBottom: 10,
   },
   button: {
@@ -53,16 +51,27 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     width: '100%',
     height: 40,
+    padding: 10,
+    backgroundColor: '#007bff',
+    borderRadius: 5,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontFamily: 'source-sans-pro-regular',
+    fontSize: 18,
+    color: 'white',
   },
 });
 
-const INIT_PRODUCT = {
-  Id: 1,
-  Name: 'Trà sữa',
-  Picture: 'https://api-milktea-admin.azurewebsites.net/Media/Product/8ad63f0f-33a8-46a1-8f08-efd24ebb0b40.jpg',
-};
-
-const Product = ({ product = INIT_PRODUCT, addToCart }) => (
+const Product = ({ product, addToCart }) => (
   <View style={styles.card}>
     <View style={styles.imageWrapper}>
       <Image
@@ -77,9 +86,11 @@ const Product = ({ product = INIT_PRODUCT, addToCart }) => (
         ellipsizeMode="tail">
         {product.Name}
       </Text>
-      <Button
-        title="Add to Cart"
-        onPress={() => { addToCart(product); }} />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => { addToCart(product); }}>
+        <Text style={styles.buttonText}>View</Text>
+      </TouchableOpacity>
     </View>
   </View>
 );

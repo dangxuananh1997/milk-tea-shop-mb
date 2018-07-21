@@ -6,9 +6,9 @@ import SignUp from '../screens/Signing/SignUp';
 
 const SigningStack = createStackNavigator(
   {
-    SignUp,
     Landing,
     SignIn,
+    SignUp,
   },
   {
     navigationOptions: {
