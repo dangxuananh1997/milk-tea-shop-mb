@@ -11,7 +11,9 @@ const INITIAL_STATE = {
   loading: false,
   orderList: [],
   totalOrder: 0,
-  orderDetails: null,
+  orderDetails: {
+    OrderDetails: [],
+  },
 };
 
 export default function (state = INITIAL_STATE, action) {

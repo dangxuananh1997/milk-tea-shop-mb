@@ -9,6 +9,9 @@ import {
   GET_USER_COUPON_LIST_REQUEST,
   GET_USER_COUPON_LIST_SUCCESS,
   GET_USER_COUPON_LIST_FAILURE,
+  GET_USER_COUPON_PACKAGE_SINGLE_REQUEST,
+  GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS,
+  GET_USER_COUPON_PACKAGE_SINGLE_FAILURE,
   RESET_CREATE_USER_COUPON_PACKAGE,
 } from './types';
 
@@ -66,6 +69,23 @@ export function getUserCouponList() {
       },
       (error) => {
         dispatch(getUserCouponListFailure(error));
+      });
+  };
+}
+
+const getUserCouponPackageSingleRequest = () => ({ type: GET_USER_COUPON_PACKAGE_SINGLE_REQUEST, payload: null });
+const getUserCouponPackageSingleSuccess = singlePackage => ({ type: GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS, payload: singlePackage });
+const getUserCouponPackageSingleError = error => ({ type: GET_USER_COUPON_PACKAGE_SINGLE_FAILURE, payload: error });
+
+export function getUserCouponPackageSingle(packageId) {
+  return (dispatch) => {
+    dispatch(getUserCouponPackageSingleRequest());
+    callAPI('GET', apiPaths.getUserCouponPackageSingle, null, { id: packageId },
+      (singlePackage) => {
+        dispatch(getUserCouponPackageSingleSuccess(singlePackage));
+      },
+      (error) => {
+        dispatch(getUserCouponPackageSingleError(error));
       });
   };
 }

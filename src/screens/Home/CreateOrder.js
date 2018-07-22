@@ -7,6 +7,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Picker,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -21,6 +22,7 @@ import {
   setCustomerName,
   setContactPhone,
   setDeliveryAddress,
+  setPaymentType,
   resetCreateOrderStatus,
 } from '../../actions/createOrder';
 
@@ -57,6 +59,12 @@ const styles = StyleSheet.create({
     height: 40,
     flexDirection: 'row',
   },
+  pickerRow: {
+    marginTop: -12,
+  },
+  pickerIcon: {
+    textAlignVertical: 'bottom',
+  },
   icon: {
     flex: 1,
     textAlign: 'center',
@@ -64,8 +72,18 @@ const styles = StyleSheet.create({
   },
   infoInput: {
     flex: 9,
-    color: '#555555',
     padding: 4,
+  },
+  paymentType: {
+    flex: 3,
+    textAlign: 'left',
+    textAlignVertical: 'bottom',
+    paddingLeft: 4,
+  },
+  pickerWrapper: {
+    flex: 6,
+    padding: 4,
+    paddingBottom: 0,
   },
   totalPriceWrapper: {
     margin: 4,
@@ -142,11 +160,13 @@ class CreateOrder extends React.Component {
       setCustomerNameProps,
       setContactPhoneProps,
       setDeliveryAddressProps,
+      setPaymentTypeProps,
       createOrderProps,
       cartProductList,
       customerName,
       contactPhone,
       deliveryAddress,
+      paymentType,
       loading,
     } = this.props;
 
@@ -157,7 +177,7 @@ class CreateOrder extends React.Component {
 
     const order = {
       TotalPrice: totalPrice,
-      PaymentType: 1,
+      PaymentType: paymentType,
       ContactPhone: contactPhone,
       CustomerName: customerName,
       DeliveryAddress: deliveryAddress,
@@ -177,35 +197,49 @@ class CreateOrder extends React.Component {
         <KeyboardAvoidingView behavior="padding" style={styles.kav}>
           <View style={styles.orderInfoCard}>
             <View style={styles.infoRow}>
-              <Icon name="user" size={20} color="#555555" style={styles.icon} />
+              <Icon name="user" size={20} color="#000000" style={styles.icon} />
               <TextInput
                 style={styles.infoInput}
                 placeholder="Name"
                 value={customerName}
-                underlineColorAndroid="#555555"
-                selectionColor="#555555"
+                underlineColorAndroid="#000000"
+                selectionColor="#000000"
                 onChangeText={(text) => { setCustomerNameProps(text); }} />
             </View>
             <View style={styles.infoRow}>
-              <Icon name="phone" size={20} color="#555555" style={styles.icon} />
+              <Icon name="phone" size={20} color="#000000" style={styles.icon} />
               <TextInput
                 style={styles.infoInput}
                 placeholder="Phone"
                 value={contactPhone}
                 keyboardType="phone-pad"
-                underlineColorAndroid="#555555"
-                selectionColor="#555555"
+                underlineColorAndroid="#000000"
+                selectionColor="#000000"
                 onChangeText={(text) => { setContactPhoneProps(text); }} />
             </View>
             <View style={styles.infoRow}>
-              <Icon name="map-pin" size={20} color="#555555" style={styles.icon} />
+              <Icon name="map-pin" size={20} color="#000000" style={styles.icon} />
               <TextInput
                 style={styles.infoInput}
                 placeholder="Address"
                 value={deliveryAddress}
-                underlineColorAndroid="#555555"
-                selectionColor="#555555"
+                underlineColorAndroid="#000000"
+                selectionColor="#000000"
                 onChangeText={(text) => { setDeliveryAddressProps(text); }} />
+            </View>
+            <View style={[styles.infoRow, styles.pickerRow]}>
+              <Icon name="credit-card" size={20} color="#000000" style={[styles.icon, styles.pickerIcon]} />
+              <Text style={styles.paymentType}>Payment Type: </Text>
+              <View style={styles.pickerWrapper}>
+                <Picker
+                  selectedValue={paymentType}
+                  mode="dropdown"
+                  onValueChange={itemValue => setPaymentTypeProps(itemValue)}>
+                  <Picker.Item label="Cash (COD)" value={1} key={1} />
+                  <Picker.Item label="Coupon" value={2} key={2} />
+                  <Picker.Item label="Card" value={3} key={3} />
+                </Picker>
+              </View>
             </View>
             <View style={styles.totalPriceWrapper}>
               <Text style={styles.totalPrice}>
@@ -233,6 +267,7 @@ function mapStateToProps(state) {
     customerName: state.createOrder.customerName,
     contactPhone: state.createOrder.contactPhone,
     deliveryAddress: state.createOrder.deliveryAddress,
+    paymentType: state.createOrder.paymentType,
     success: state.createOrder.success,
     userInfo: state.auth.userInfo,
   };
@@ -244,6 +279,7 @@ function mapDispatchToProps(dispatch) {
     setCustomerNameProps: bindActionCreators(setCustomerName, dispatch),
     setContactPhoneProps: bindActionCreators(setContactPhone, dispatch),
     setDeliveryAddressProps: bindActionCreators(setDeliveryAddress, dispatch),
+    setPaymentTypeProps: bindActionCreators(setPaymentType, dispatch),
     clearCartProps: bindActionCreators(clearCart, dispatch),
     resetStatusProps: bindActionCreators(resetCreateOrderStatus, dispatch),
     showSnackbarProps: bindActionCreators(showSnackbar, dispatch),

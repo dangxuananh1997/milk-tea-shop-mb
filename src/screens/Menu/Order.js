@@ -47,7 +47,7 @@ class Order extends React.Component {
 
   render() {
     const {
-      // navigation,
+      navigation,
       orderList,
       loading,
     } = this.props;
@@ -64,7 +64,7 @@ class Order extends React.Component {
               <View style={styles.item}>
                 <OrderItem
                   order={item}
-                  goToDetails={(id) => { console.log(id); }} />
+                  goToDetails={(id) => { navigation.navigate('OrderDetails', { orderId: id }); }} />
               </View>
             )
           }

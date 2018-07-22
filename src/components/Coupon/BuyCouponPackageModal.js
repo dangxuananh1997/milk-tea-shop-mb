@@ -12,6 +12,7 @@ import {
 import commonStyles from '../../styles/common';
 
 import { convertToVND } from '../../tools/currencyConverter';
+import convertDate from '../../tools/dateConverter';
 
 const styles = StyleSheet.create({
   modal: {
@@ -69,6 +70,14 @@ const styles = StyleSheet.create({
   },
 });
 
+function getCouponStartDate() {
+  const date = new Date();
+  date.setUTCDate(date.getDate() + 1);
+  date.setUTCHours(0);
+  date.setUTCMinutes(0);
+  return `${convertDate(date)}`;
+}
+
 const BuyCouponPackageModal = (
   {
     couponPackage,
@@ -101,7 +110,7 @@ const BuyCouponPackageModal = (
                 {`Drink Quantity: ${couponPackage.DrinkQuantity}`}
               </Text>
               <Text style={[commonStyles.sourceSansProRegular, styles.info]}>
-                {'Contain: 30 coupons for 30 days'}
+                {`Contain: 30 coupons for 30 days\n(from ${getCouponStartDate()})`}
               </Text>
               <Text style={[commonStyles.sourceSansProRegular, styles.info]}>
                 {`Price: ${convertToVND(couponPackage.Price)}`}

@@ -9,6 +9,9 @@ import {
   GET_USER_COUPON_LIST_REQUEST,
   GET_USER_COUPON_LIST_SUCCESS,
   GET_USER_COUPON_LIST_FAILURE,
+  GET_USER_COUPON_PACKAGE_SINGLE_REQUEST,
+  GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS,
+  GET_USER_COUPON_PACKAGE_SINGLE_FAILURE,
   RESET_CREATE_USER_COUPON_PACKAGE,
 } from '../actions/types';
 
@@ -76,6 +79,25 @@ export default function (state = INITIAL_STATE, action) {
         loading: false,
       };
     case GET_USER_COUPON_LIST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
+    case GET_USER_COUPON_PACKAGE_SINGLE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS: {
+      // const tmpUserCouponPackageList = [...state.userCouponPackageList];
+      // const singlePackage
+
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case GET_USER_COUPON_PACKAGE_SINGLE_FAILURE:
       return {
         ...state,
         loading: false,

@@ -10,6 +10,7 @@ const apiPaths = {
   getCouponPackage: '/api/CouponPackages/Get',
   createUserCouponPackage: '/api/UserCouponPackages/Create',
   getUserCouponPackage: '/api/UserCouponPackages/GetAll',
+  getUserCouponPackageSingle: '/api/UserCouponPackages/GetSingle/',
 };
 
 export default apiPaths;

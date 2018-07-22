@@ -96,7 +96,9 @@ const OrderItem = ({ order, goToDetails }) => (
           </View>
           <View style={styles.infoRow}>
             <Icon name="credit-card" size={15} color="#000000" style={styles.icon} />
-            <Text style={styles.info}>{`Total: ${convertToVND(order.TotalPrice)}`}</Text>
+            <Text style={styles.info}>
+              {`Total: ${convertToVND(order.TotalPrice)} - ${order.PaymentType === 1 ? 'Cash (COD)' : order.PaymentType === 2 ? 'Coupon' : 'Card'}`}
+            </Text>
           </View>
         </View>
         <View style={[
@@ -106,7 +108,10 @@ const OrderItem = ({ order, goToDetails }) => (
               ? '#ffff72'
               : order.Status === 'Approved'
                 ? '#98ee99'
-                : '#ff7961',
+                : order.Status === 'Declined'
+                  ? '#ff7961'
+                  : order.Status === 'Delivered'
+                    ? '#d3d3d3' : 'white',
           }]}>
           <Text style={styles.orderStatus}>
             {order.Status}

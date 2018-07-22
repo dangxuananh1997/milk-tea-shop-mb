@@ -5,6 +5,7 @@ import {
   SET_CUSTOMER_NAME,
   SET_CONTACT_PHONE,
   SET_DELIVERY_ADDRESS,
+  SET_PAYMENT_TYPE,
   RESET_CREATE_ORDER_STATUS,
 } from '../actions/types';
 
@@ -50,6 +51,11 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         deliveryAddress: action.payload,
+      };
+    case SET_PAYMENT_TYPE:
+      return {
+        ...state,
+        paymentType: action.payload,
       };
     case RESET_CREATE_ORDER_STATUS:
       return {

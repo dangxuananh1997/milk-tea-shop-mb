@@ -2,6 +2,7 @@ import {
   SET_CUSTOMER_NAME,
   SET_CONTACT_PHONE,
   SET_DELIVERY_ADDRESS,
+  SET_PAYMENT_TYPE,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAILURE,
@@ -13,6 +14,7 @@ import { callAPI, apiPaths } from '../services';
 const setCustomerName = customerName => ({ type: SET_CUSTOMER_NAME, payload: customerName });
 const setContactPhone = contactPhone => ({ type: SET_CONTACT_PHONE, payload: contactPhone });
 const setDeliveryAddress = deliveryAddress => ({ type: SET_DELIVERY_ADDRESS, payload: deliveryAddress });
+const setPaymentType = paymentType => ({ type: SET_PAYMENT_TYPE, payload: paymentType });
 
 const createOrderRequest = () => ({ type: CREATE_ORDER_REQUEST, payload: null });
 const createOrderSuccess = order => ({ type: CREATE_ORDER_SUCCESS, payload: order });
@@ -37,5 +39,6 @@ export {
   setCustomerName,
   setContactPhone,
   setDeliveryAddress,
+  setPaymentType,
   resetCreateOrderStatus,
 };
