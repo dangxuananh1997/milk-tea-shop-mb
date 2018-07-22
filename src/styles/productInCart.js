@@ -83,7 +83,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   button: {
-    marginTop: 16,
+    width: '100%',
+    height: 40,
+    backgroundColor: '#007bff',
+    borderRadius: 5,
+    elevation: 3,
+  },
+  buttonText: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 18,
+    color: 'white',
+    height: '100%',
   },
 });
 

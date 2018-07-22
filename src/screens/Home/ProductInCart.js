@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Image,
-  Button,
+  TouchableOpacity,
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
@@ -133,9 +133,8 @@ class ProductInCart extends React.Component {
               </Text>
             </View>
           </View>
-          <Button
+          <TouchableOpacity
             style={styles.button}
-            title={isUpdate ? 'Update Cart' : 'Add to Cart'}
             onPress={() => {
               const variant = {
                 ...selectedVariant,
@@ -152,7 +151,9 @@ class ProductInCart extends React.Component {
               }
               changeAddToUpdateProps(false);
               navigation.goBack();
-            }} />
+            }}>
+            <Text style={styles.buttonText}>{isUpdate ? 'Update Cart' : 'Add to Cart'}</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );

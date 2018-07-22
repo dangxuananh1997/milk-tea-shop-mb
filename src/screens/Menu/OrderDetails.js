@@ -58,13 +58,16 @@ class OrderDetails extends React.Component {
   render() {
     const {
       orderDetails,
+      loading,
     } = this.props;
 
     return (
       <View style={commonStyles.screen}>
         <View style={styles.card}>
           <FlatList
-            data={orderDetails.OrderDetails}
+            data={loading ? [] : orderDetails.OrderDetails}
+            onRefresh={() => {}}
+            refreshing={loading}
             renderItem={({ item }) => (
               <View style={styles.item}>
                 <OrderDetailsItem orderDetails={item} />
