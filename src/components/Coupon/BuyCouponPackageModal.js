@@ -51,15 +51,16 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   buttonWrapper: {
-    height: 60,
+    height: 50,
     width: '100%',
     flexDirection: 'row',
+    padding: 5,
   },
   button: {
     elevation: 3,
     flex: 1,
     backgroundColor: '#007bff',
-    margin: 10,
+    margin: 5,
     borderRadius: 5,
   },
   buttonText: {
@@ -123,7 +124,7 @@ const BuyCouponPackageModal = (
                 <Text style={styles.buttonText}>Buy</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.button}
+                style={[styles.button, { backgroundColor: '#6c757d' }]}
                 onPress={() => { cancelBuy(); }}>
                 <Text style={styles.buttonText}>Close</Text>
               </TouchableOpacity>

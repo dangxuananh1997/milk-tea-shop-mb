@@ -11,6 +11,7 @@ const apiPaths = {
   createUserCouponPackage: '/api/UserCouponPackages/Create',
   getUserCouponPackage: '/api/UserCouponPackages/GetAll',
   getUserCouponPackageSingle: '/api/UserCouponPackages/GetSingle/',
+  updateProfile: '/api/Users/Update/',
 };
 
 export default apiPaths;

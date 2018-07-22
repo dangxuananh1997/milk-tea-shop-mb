@@ -131,7 +131,7 @@ class Menu extends React.Component {
         <View style={styles.avatarContainer}>
           <TouchableOpacity
             style={styles.avatarWrapper}
-            onPress={() => {}}>
+            onPress={() => { navigation.navigate('Profile'); }}>
             <Image
               resizeMode="cover"
               style={styles.avatar}
@@ -139,14 +139,14 @@ class Menu extends React.Component {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          onPress={() => {}}>
+          onPress={() => { navigation.navigate('Profile'); }}>
           <Text style={styles.fullName}>
             {userInfo.FullName}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuOptions}
-          onPress={() => { }}>
+          onPress={() => { navigation.navigate('Profile'); }}>
           <Icon name="edit" size={20} style={styles.icon} />
           <Text style={styles.optionText}>Edit Profile</Text>
           <View style={styles.badgeWrapper} />
