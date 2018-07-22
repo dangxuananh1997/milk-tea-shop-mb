@@ -23,6 +23,10 @@ import {
   getOrderList,
 } from '../actions/order';
 
+import {
+  getUserCouponList,
+} from '../actions/coupon';
+
 import commonStyles from '../styles/common';
 
 const styles = StyleSheet.create({
@@ -97,14 +101,19 @@ class Menu extends React.Component {
     title: 'Menu',
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const {
       orderList,
       getOrderListProps,
+      getUserCouponListProps,
+      totalUserCoupon,
     } = this.props;
 
     if (orderList.length === 0) {
       getOrderListProps();
+    }
+    if (totalUserCoupon === 0) {
+      getUserCouponListProps();
     }
   }
 
@@ -124,6 +133,7 @@ class Menu extends React.Component {
       navigation,
       userInfo,
       orderList,
+      totalUserCoupon,
     } = this.props;
 
     return (
@@ -165,12 +175,12 @@ class Menu extends React.Component {
         <TouchableOpacity
           style={styles.menuOptions}
           onPress={() => {
-            navigation.navigate('Coupon');
+            navigation.navigate('UserCoupon');
           }}>
           <Icon name="box" size={20} style={styles.icon} />
           <Text style={styles.optionText}>Your Coupon</Text>
           <View style={styles.badgeWrapper}>
-            <Badge value={0} wrapperStyle={styles.badge} />
+            <Badge value={totalUserCoupon} wrapperStyle={styles.badge} />
           </View>
         </TouchableOpacity>
         <View style={styles.logoutOption}>
@@ -194,6 +204,7 @@ function mapStateToProps(state) {
     loading: state.auth.loading,
     userInfo: state.auth.userInfo,
     orderList: state.order.orderList,
+    totalUserCoupon: state.coupon.totalUserCoupon,
   };
 }
 
@@ -202,6 +213,7 @@ function mapDispatchToProps(dispatch) {
     getUserInfoProps: bindActionCreators(getUserInfo, dispatch),
     logOutProps: bindActionCreators(logOut, dispatch),
     getOrderListProps: bindActionCreators(getOrderList, dispatch),
+    getUserCouponListProps: bindActionCreators(getUserCouponList, dispatch),
   };
 }
 

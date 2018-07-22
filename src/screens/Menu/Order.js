@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
 class Order extends React.Component {
   static navigationOptions = {
-    title: 'Order',
+    title: 'Your Order',
   };
 
   componentDidMount() {

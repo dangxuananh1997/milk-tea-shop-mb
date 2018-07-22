@@ -12,7 +12,7 @@ import {
 import commonStyles from '../../styles/common';
 
 import { convertToVND } from '../../tools/currencyConverter';
-import convertDate from '../../tools/dateConverter';
+import { convertDate } from '../../tools/dateConverter';
 
 const styles = StyleSheet.create({
   modal: {

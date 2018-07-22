@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import { convertToVND } from '../../tools/currencyConverter';
-import dateConverter from '../../tools/dateConverter';
+import { convertDate } from '../../tools/dateConverter';
 
 const styles = StyleSheet.create({
   card: {
@@ -117,7 +117,7 @@ const OrderItem = ({ order, goToDetails }) => (
             {order.Status}
           </Text>
           <Text style={styles.date}>
-            {dateConverter(order.OrderDate)}
+            {convertDate(order.OrderDate)}
           </Text>
         </View>
       </View>

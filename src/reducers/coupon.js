@@ -9,16 +9,16 @@ import {
   GET_USER_COUPON_LIST_REQUEST,
   GET_USER_COUPON_LIST_SUCCESS,
   GET_USER_COUPON_LIST_FAILURE,
-  GET_USER_COUPON_PACKAGE_SINGLE_REQUEST,
-  GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS,
-  GET_USER_COUPON_PACKAGE_SINGLE_FAILURE,
   RESET_CREATE_USER_COUPON_PACKAGE,
 } from '../actions/types';
 
+import { getCurrentDate } from '../tools/dateConverter';
+
 const INITIAL_STATE = {
   couponPackageList: [],
-  totalCouponPackage: 0,
-  userCouponPackageList: [],
+  totalUserCoupon: 0,
+  userCouponPackageList: null,
+  availableCoupons: [],
   totalUserCouponPackage: 0,
   createUserCoupon: null,
   createUserCouponSuccess: null,
@@ -71,33 +71,35 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         loading: true,
       };
-    case GET_USER_COUPON_LIST_SUCCESS:
+    case GET_USER_COUPON_LIST_SUCCESS: {
+      const couponItems = {};
+      const couponPackages = [...action.payload.Data];
+      couponPackages.forEach((pack) => {
+        pack.CouponItems.forEach((couponItem) => {
+          const coupon = {
+            Id: couponItem.Id,
+            DateExpired: couponItem.DateExpired.substring(0, 10),
+            IsUsed: couponItem.IsUsed,
+            DrinkQuantity: pack.DrinkQuantity,
+            IsExpired: new Date(couponItem.DateExpired.substring(0, 10)) < new Date(getCurrentDate()),
+          };
+          const tmpItem = couponItems[couponItem.DateExpired.substring(0, 10)];
+          if (tmpItem !== undefined) {
+            tmpItem.push(coupon);
+          } else {
+            couponItems[couponItem.DateExpired.substring(0, 10)] = [coupon];
+          }
+        });
+      });
       return {
         ...state,
-        userCouponPackageList: action.payload.Data,
-        totalUserCouponPackage: action.payload.Total,
-        loading: false,
-      };
-    case GET_USER_COUPON_LIST_FAILURE:
-      return {
-        ...state,
-        loading: false,
-      };
-    case GET_USER_COUPON_PACKAGE_SINGLE_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case GET_USER_COUPON_PACKAGE_SINGLE_SUCCESS: {
-      // const tmpUserCouponPackageList = [...state.userCouponPackageList];
-      // const singlePackage
-
-      return {
-        ...state,
+        userCouponPackageList: { ...couponItems },
+        availableCoupons: couponItems[getCurrentDate()],
+        totalUserCoupon: 1,
         loading: false,
       };
     }
-    case GET_USER_COUPON_PACKAGE_SINGLE_FAILURE:
+    case GET_USER_COUPON_LIST_FAILURE:
       return {
         ...state,
         loading: false,

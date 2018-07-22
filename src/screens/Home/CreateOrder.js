@@ -30,6 +30,10 @@ import {
   clearCart,
 } from '../../actions/cart';
 
+import {
+  getUserCouponList,
+} from '../../actions/coupon';
+
 import { showSnackbar } from '../../actions/snackbar';
 
 import commonStyles from '../../styles/common';
@@ -121,7 +125,7 @@ class CreateOrder extends React.Component {
     title: 'Create Order',
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const {
       setCustomerNameProps,
       setContactPhoneProps,
@@ -270,6 +274,7 @@ function mapStateToProps(state) {
     paymentType: state.createOrder.paymentType,
     success: state.createOrder.success,
     userInfo: state.auth.userInfo,
+    userCouponPackageList: state.coupon.userCouponPackageList,
   };
 }
 
@@ -283,6 +288,7 @@ function mapDispatchToProps(dispatch) {
     clearCartProps: bindActionCreators(clearCart, dispatch),
     resetStatusProps: bindActionCreators(resetCreateOrderStatus, dispatch),
     showSnackbarProps: bindActionCreators(showSnackbar, dispatch),
+    getUserCouponListProps: bindActionCreators(getUserCouponList, dispatch),
   };
 }
 
