@@ -54,9 +54,9 @@ class UserCoupon extends React.Component {
         <Agenda
           items={userCouponPackageList}
           renderItem={item => (
-            <View style={[styles.item, { backgroundColor: item.IsExpired ? '#d3d3d3' : 'white' }]}>
+            <View style={[styles.item, { backgroundColor: item.IsExpired || item.IsUsed ? '#d3d3d3' : 'white' }]}>
               <Text>
-                {`Expired Date: ${item.DateExpired}${item.IsExpired ? ' (Expired)' : ''}`}
+                {`Expired Date: ${item.DateExpired}${item.IsExpired ? ' (Expired)' : item.IsUsed ? ' (Used)' : ''}`}
               </Text>
               <Text>
                 {`Drink Quantity: ${item.DrinkQuantity}`}

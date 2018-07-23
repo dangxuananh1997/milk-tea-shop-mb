@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
 function getCouponStartDate() {
   const date = new Date();
-  date.setUTCDate(date.getDate() + 1);
+  date.setUTCDate(date.getDate());
   date.setUTCHours(0);
   date.setUTCMinutes(0);
   return `${convertDate(date)}`;
