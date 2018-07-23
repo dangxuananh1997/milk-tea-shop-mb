@@ -207,7 +207,7 @@ class CreateOrder extends React.Component {
       ContactPhone: contactPhone,
       CustomerName: customerName,
       DeliveryAddress: deliveryAddress,
-      CouponItemIds: paymentType !== 2 ? [] : [availableCouponsModified[0].Id],
+      CouponItemIds: (paymentType !== 2 && availableCouponsModified) ? [] : [availableCouponsModified[0].Id],
       OrderDetails: cartProductList.map(
         pv => ({
           ProductVariantId: pv.Id,

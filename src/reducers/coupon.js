@@ -97,7 +97,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         userCouponPackageList: { ...couponItems },
         availableCoupons: [...available],
-        totalUserCoupon: 1,
+        totalUserCoupon: available.length,
         loading: false,
       };
     }

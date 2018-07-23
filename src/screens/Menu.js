@@ -178,7 +178,7 @@ class Menu extends React.Component {
             navigation.navigate('UserCoupon');
           }}>
           <Icon name="box" size={20} style={styles.icon} />
-          <Text style={styles.optionText}>Your Coupon</Text>
+          <Text style={styles.optionText}>Your Coupon for Today</Text>
           <View style={styles.badgeWrapper}>
             <Badge value={totalUserCoupon} wrapperStyle={styles.badge} />
           </View>
