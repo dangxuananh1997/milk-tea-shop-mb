@@ -16,6 +16,10 @@ import {
   getUserInfo,
 } from '../../actions/auth';
 
+import {
+  getUserCouponList,
+} from '../../actions/coupon';
+
 import commonStyles from '../../styles/common';
 
 import ModalLoading from '../../components/ModalLoading';
@@ -30,10 +34,11 @@ const styles = StyleSheet.create({
 });
 
 class AuthProcessing extends React.Component {
-  async componentDidMount() {
+  async componentWillMount() {
     const {
       setTokenProps,
       getUserInfoProps,
+      getUserCouponListProps,
     } = this.props;
 
     const tokenJson = await AsyncStorage.getItem('token');
@@ -45,6 +50,7 @@ class AuthProcessing extends React.Component {
       if (tokenExpiredTime > new Date()) {
         setTokenProps(token, tokenExpiredTime);
         getUserInfoProps();
+        getUserCouponListProps();
       } else {
         this.navigateToScreen('SigningStack');
       }
@@ -102,6 +108,7 @@ function mapDispatchToProps(dispatch) {
     setTokenProps: bindActionCreators(setToken, dispatch),
     setLoadingProps: bindActionCreators(setLoading, dispatch),
     getUserInfoProps: bindActionCreators(getUserInfo, dispatch),
+    getUserCouponListProps: bindActionCreators(getUserCouponList, dispatch),
   };
 }
 

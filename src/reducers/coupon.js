@@ -91,10 +91,12 @@ export default function (state = INITIAL_STATE, action) {
           }
         });
       });
+      let available = couponItems[getCurrentDate()] ? couponItems[getCurrentDate()] : [];
+      available = available.filter(c => !c.IsUsed);
       return {
         ...state,
         userCouponPackageList: { ...couponItems },
-        availableCoupons: couponItems[getCurrentDate()],
+        availableCoupons: [...available],
         totalUserCoupon: 1,
         loading: false,
       };

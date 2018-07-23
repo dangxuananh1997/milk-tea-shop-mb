@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   pickerRow: {
     marginTop: -12,
+    marginBottom: 10,
   },
   pickerIcon: {
     textAlignVertical: 'bottom',
@@ -131,11 +132,16 @@ class CreateOrder extends React.Component {
       setContactPhoneProps,
       setDeliveryAddressProps,
       userInfo,
+      availableCoupons,
+      getUserCouponListProps,
     } = this.props;
 
     setCustomerNameProps(userInfo.FullName ? userInfo.FullName : '');
     setContactPhoneProps(userInfo.Phone ? userInfo.Phone : '');
     setDeliveryAddressProps(userInfo.Address ? userInfo.Address : '');
+    if (availableCoupons.length === 0) {
+      getUserCouponListProps();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -145,12 +151,14 @@ class CreateOrder extends React.Component {
       clearCartProps,
       resetStatusProps,
       showSnackbarProps,
+      getUserCouponListProps,
     } = this.props;
 
     if (prevProps.success !== true) {
       if (success === true) {
         showSnackbarProps('Order successfully!');
         clearCartProps();
+        getUserCouponListProps();
         resetStatusProps();
         navigation.popToTop();
       } else if (success === false) {
@@ -171,13 +179,27 @@ class CreateOrder extends React.Component {
       contactPhone,
       deliveryAddress,
       paymentType,
+      availableCoupons,
       loading,
     } = this.props;
 
     let totalPrice = 0;
+    let totalQuantity = 0;
     cartProductList.forEach((product) => {
       totalPrice += product.Price * product.Quantity;
+      totalQuantity += product.Quantity;
     });
+
+    const paymentTypes = [
+      { label: 'Cash (COD)', value: 1 },
+      { label: 'Card', value: 3 },
+    ];
+
+    const availableCouponsModified = [...availableCoupons].filter(c => c.DrinkQuantity >= totalQuantity);
+
+    if (availableCouponsModified.length > 0) {
+      paymentTypes.push({ label: 'Coupon', value: 2 });
+    }
 
     const order = {
       TotalPrice: totalPrice,
@@ -185,7 +207,7 @@ class CreateOrder extends React.Component {
       ContactPhone: contactPhone,
       CustomerName: customerName,
       DeliveryAddress: deliveryAddress,
-      CouponItemIds: [],
+      CouponItemIds: paymentType !== 2 ? [] : [availableCouponsModified[0].Id],
       OrderDetails: cartProductList.map(
         pv => ({
           ProductVariantId: pv.Id,
@@ -239,12 +261,34 @@ class CreateOrder extends React.Component {
                   selectedValue={paymentType}
                   mode="dropdown"
                   onValueChange={itemValue => setPaymentTypeProps(itemValue)}>
-                  <Picker.Item label="Cash (COD)" value={1} key={1} />
-                  <Picker.Item label="Coupon" value={2} key={2} />
-                  <Picker.Item label="Card" value={3} key={3} />
+                  {
+                    paymentTypes.map(type => <Picker.Item label={type.label} value={type.value} key={type.value} />)
+                  }
                 </Picker>
               </View>
             </View>
+            {
+              paymentType === 2
+              && (
+                <View style={[styles.infoRow, styles.pickerRow]}>
+                  <Icon name="tag" size={20} color="#000000" style={[styles.icon, styles.pickerIcon]} />
+                  <Text style={styles.paymentType}>Coupon: </Text>
+                  <View style={styles.pickerWrapper}>
+                    <Picker
+                      selectedValue={availableCoupons[0].Id}
+                      mode="dropdown"
+                      onValueChange={(itemValue) => {
+                        order.CouponItemIds = [];
+                        order.CouponItemIds.push(itemValue);
+                      }}>
+                      {
+                        availableCouponsModified.map(c => <Picker.Item label={`${c.DateExpired} - Drink Quantity: ${c.DrinkQuantity}`} value={c.Id} key={c.Id} />)
+                      }
+                    </Picker>
+                  </View>
+                </View>
+              )
+            }
             <View style={styles.totalPriceWrapper}>
               <Text style={styles.totalPrice}>
                 {`Total: ${convertToVND(totalPrice)}`}
@@ -275,6 +319,7 @@ function mapStateToProps(state) {
     success: state.createOrder.success,
     userInfo: state.auth.userInfo,
     userCouponPackageList: state.coupon.userCouponPackageList,
+    availableCoupons: state.coupon.availableCoupons,
   };
 }
 
